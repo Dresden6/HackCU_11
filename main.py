@@ -8,9 +8,11 @@ from map import Map
 # pygame setup
 pygame.init()
 
-SCREEN_WIDTH, SCREEN_HEIGHT = 854, 480
+SCREEN_WIDTH, SCREEN_HEIGHT = 1920, 1080 # Everything should be done in reference to these screen dimensions
 
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
+CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT = 854, 480 # These dimensions are only for calculating resizing
+
+screen = pygame.display.set_mode((CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT), pygame.RESIZABLE)
 clock = pygame.time.Clock()
 running = True
 
@@ -44,8 +46,8 @@ sprites = pygame.sprite.RenderPlain([player_cell] + viruses)
 
 # Scale everything correctly:
 for sprite in sprites:
-                sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (SCREEN_WIDTH, SCREEN_HEIGHT)))
-backgroundImg = pygame.transform.scale(backgroundImg, (SCREEN_WIDTH, SCREEN_HEIGHT)) # Resize background image
+                sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
+backgroundImg = pygame.transform.scale(backgroundImg, (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
 
 
 while running:
@@ -55,25 +57,26 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.VIDEORESIZE:
-            SCREEN_WIDTH, SCREEN_HEIGHT = event.size
+            CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT = event.size
             
             # Keep aspect ratio
-            if SCREEN_WIDTH == pygame.display.Info().current_w:
-                SCREEN_WIDTH = 16/9 * SCREEN_HEIGHT
-            elif SCREEN_HEIGHT == pygame.display.Info().current_h:
-                SCREEN_HEIGHT = 9/16 * SCREEN_WIDTH
+            if CURR_SCREEN_WIDTH == pygame.display.Info().current_w:
+                CURR_SCREEN_WIDTH = 16/9 * CURR_SCREEN_HEIGHT
+            elif CURR_SCREEN_HEIGHT == pygame.display.Info().current_h:
+                CURR_SCREEN_HEIGHT = 9/16 * CURR_SCREEN_WIDTH
             else:
-                SCREEN_HEIGHT = 9/16 * SCREEN_WIDTH
+                CURR_SCREEN_HEIGHT = 9/16 * CURR_SCREEN_WIDTH
             
-            if SCREEN_WIDTH < 854 or SCREEN_HEIGHT < 480:
-                SCREEN_WIDTH = 854
-                SCREEN_HEIGHT = 480
+            if CURR_SCREEN_WIDTH < 854 or CURR_SCREEN_HEIGHT < 480:
+                CURR_SCREEN_WIDTH = 854
+                CURR_SCREEN_HEIGHT = 480
             
-            screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE) # Resize window
-            backgroundImg = pygame.transform.scale(backgroundImg, (SCREEN_WIDTH, SCREEN_HEIGHT)) # Resize background image
+            screen = pygame.display.set_mode((CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT), pygame.RESIZABLE) # Resize window
+            backgroundImg = pygame.transform.scale(backgroundImg, (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
             
             for sprite in sprites:
-                sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (SCREEN_WIDTH, SCREEN_HEIGHT)))
+                sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
+                sprite.rect.width, sprite.rect.height = scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
                 pass
           
           
