@@ -8,7 +8,7 @@ from map import Map
 # pygame setup
 pygame.init()
 
-SCREEN_WIDTH, SCREEN_HEIGHT = 1920, 1080
+SCREEN_WIDTH, SCREEN_HEIGHT = 1280, 720
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
 clock = pygame.time.Clock()
@@ -21,8 +21,7 @@ pygame.display.set_caption('Biology Platformer')
 # create a surface object, image is drawn on it.
 imp = pygame.image.load("./assets/testBackground.jpg").convert()
 
-info = pygame.display.Info()
-player_cell = TCell(20, 20, info.current_h/2, info.current_w/2)
+player_cell = TCell(20, 20, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 sprites = pygame.sprite.RenderPlain((player_cell))
 
 while running:
@@ -33,13 +32,13 @@ while running:
             running = False
 
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT]:
+    if keys[pygame.K_a]:
         player_cell.moveLeft()
-    if keys[pygame.K_RIGHT]:
+    if keys[pygame.K_d]:
         player_cell.moveRight()
-    if keys[pygame.K_DOWN]:
+    if keys[pygame.K_w]:
         player_cell.moveUp()
-    if keys[pygame.K_UP]:
+    if keys[pygame.K_s]:
         player_cell.moveDown()
 
     sprites.update()
