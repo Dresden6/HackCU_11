@@ -98,6 +98,8 @@ while running:
         map.changeRoom(direction)
 
 
+    # Virus Movement
+
     for virus in viruses:
         if (virus.x > SCREEN_WIDTH or virus.x < 0):
             virus.xspeed = -virus.xspeed
@@ -109,11 +111,17 @@ while running:
 
 
 
+    # Lock/Unlock chamber
+
+    # if viruses.__len__ == 0:
+        
+    print (player_cell.x, player_cell.y)
+    print (player_cell.width, player_cell.height)
+
     
     # Resize coordinates for everything 
     for sprite in sprites:
         sprite.rect.center = scaleCoordinates((sprite.x, sprite.y), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Probably a better way to do this
-
 
     sprites.update()
 
