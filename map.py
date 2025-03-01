@@ -8,10 +8,10 @@ class Map():
         room_types = [0, 1, 2, 3, 4, 5] # types of roms to be filled into the grid, -1 is the start tile, 6 is the end tile
         generated_rooms = random.choices(room_types, k = 23)
         room_grid = [
-            [-1,1,1,1,1]
-            [1,1,1,1,1]
-            [1,1,1,1,1]
-            [1,1,1,1,1]
+            [-1,1,1,1,1],
+            [1,1,1,1,1],
+            [1,1,1,1,1],
+            [1,1,1,1,1],
             [1,1,1,1,6]
         ]
         # populating the grid with the generated rooms
