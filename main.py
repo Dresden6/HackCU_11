@@ -21,8 +21,11 @@ def scaleToScreenSize(size, eventSize):
     height_ratio = eventSize[1] / 1080
     return (int(size[0] * width_ratio), int(size[1] * height_ratio))
     
-
-
+# Scale coordinates based on screen size. Base size is 1920x1080. Should take in a touple of (x, y)
+def scaleCoordinates(coords, eventSize):
+    width_ratio = eventSize[0] / 1920
+    height_ratio = eventSize[1] / 1080
+    return (int(coords[0] * width_ratio), int(coords[1] * height_ratio))
 
 
 
@@ -33,7 +36,7 @@ pygame.display.set_caption('Biology Platformer')
 backgroundImg = pygame.image.load("./assets/environment/background.png").convert()
 
 info = pygame.display.Info()
-player_cell = TCell(20, 20, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+player_cell = TCell(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 basic_virus = Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40)
 map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
 sprites = pygame.sprite.RenderPlain((player_cell))
@@ -89,6 +92,12 @@ while running:
         direction = player_cell.findRoomMovementDirection()
         map.changeRoom(SCREEN_WIDTH, SCREEN_HEIGHT, direction)
 
+
+
+    # Scale sprite coordinates
+    for sprite in sprites:
+        sprite.rect.center = scaleCoordinates((sprite.x, sprite.y), (SCREEN_WIDTH, SCREEN_HEIGHT)) # Probably a better way to do this
+        
     sprites.update()
 
     # fill the screen with a color to wipe away anything from last frame
