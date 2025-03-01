@@ -57,11 +57,11 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.VIDEORESIZE:
-            CURR_SCREEN_WIDTH, SCREEN_HEIGHT = event.size
+            CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT = event.size
             
             # Keep aspect ratio
             if CURR_SCREEN_WIDTH == pygame.display.Info().current_w:
-                CURR_SCREEN_WIDTH = 16/9 * SCREEN_HEIGHT
+                CURR_SCREEN_WIDTH = 16/9 * CURR_SCREEN_HEIGHT
             elif CURR_SCREEN_HEIGHT == pygame.display.Info().current_h:
                 CURR_SCREEN_HEIGHT = 9/16 * CURR_SCREEN_WIDTH
             else:
@@ -76,6 +76,7 @@ while running:
             
             for sprite in sprites:
                 sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
+                sprite.rect.width, sprite.rect.height = scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
                 pass
           
           
@@ -114,9 +115,6 @@ while running:
     # Lock/Unlock chamber
 
     # if viruses.__len__ == 0:
-        
-    print (player_cell.x, player_cell.y)
-    print (player_cell.width, player_cell.height)
 
     
     # Resize coordinates for everything 
