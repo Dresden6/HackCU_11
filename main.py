@@ -29,16 +29,15 @@ pygame.display.set_caption('Biology Platformer')
 # Create main background image
 imp = pygame.image.load("./assets/testBackground.jpg").convert()
 
-info = pygame.display.Info()
-player_cell = TCell(20, 20, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-basic_virus = Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40)
+player_cell = TCell(64, 64, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+viruses = [Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40)]
 map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
-sprites = pygame.sprite.RenderPlain((player_cell))
+sprites = pygame.sprite.RenderPlain([player_cell] + viruses)
 
 
 # Scale everything correctly:
 for sprite in sprites:
-                sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height)))
+    sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height)))
 
 
 while running:
@@ -67,6 +66,11 @@ while running:
     if (player_cell.hasMovedRooms(SCREEN_WIDTH, SCREEN_HEIGHT)):
         direction = player_cell.findRoomMovementDirection()
         map.changeRoom(direction)
+
+    for virus in viruses:
+        virus_x = virus.getLocation()[0]
+        if (virus_x > SCREEN_WIDTH or virus_x < 0):
+            virus.speed = -virus.speed
 
     sprites.update()
 
