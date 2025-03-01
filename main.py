@@ -1,6 +1,10 @@
 # Example file showing a basic pygame "game loop"
 import pygame
 
+from tcell import TCell
+from virus import Virus
+from barrier import Barrier
+
 # pygame setup
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
