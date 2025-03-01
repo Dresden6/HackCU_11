@@ -10,7 +10,7 @@ pygame.init()
 
 SCREEN_WIDTH, SCREEN_HEIGHT = 1920, 1080
 
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
 clock = pygame.time.Clock()
 running = True
 
