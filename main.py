@@ -38,7 +38,6 @@ map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 sprites = pygame.sprite.RenderPlain((player_cell))
 
-
 # Scale everything correctly:
 for sprite in sprites:
                 sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height)))
@@ -69,7 +68,7 @@ while running:
     # check if player has moved rooms
     if (player_cell.hasMovedRooms(SCREEN_WIDTH, SCREEN_HEIGHT)):
         direction = player_cell.findRoomMovementDirection()
-        map.changeRoom(direction)
+        map.changeRoom(SCREEN_WIDTH, SCREEN_HEIGHT, direction)
 
     sprites.update()
 
