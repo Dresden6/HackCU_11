@@ -9,7 +9,8 @@ class Virus(pygame.sprite.Sprite):
         self.width = width
         self.height = height
         
-        
+        self.radius = width / 4
+
         self.attacking = False
         
         self.x = x
@@ -26,6 +27,15 @@ class Virus(pygame.sprite.Sprite):
     # trying to make the virus flash when it is hit
     def update(self):      
         self._move()
+
+        self.hit_countdown += 1
+
+        if (self.hit_countdown >= 100 ):
+            self.hit_countdown = 0
+            if (self.attacking):
+                self.idle()
+            else:
+                self.attack()
 
     # makes the virus move randomly back and forth across the screen
     def _move(self):
