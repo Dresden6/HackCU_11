@@ -5,20 +5,20 @@ class Virus(pygame.sprite.Sprite):
     # creates the virus
     def __init__(self):
         
-        self.image = pygame.image.load("./assets/virus/virus_idle.png").convert_alpha()
+        self.image = pygame.image.load("./assets/tcell/virus_idle.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (self.image.get_width() * 2, self.image.get_height() * 2))
         
         
         pygame.sprite.Sprite.__init__(self)
-        screen = pygame.display.get_surface()
-        self.area = screen.get_rect()
+        # screen = pygame.display.get_surface()
+        self.area = self.image.get_rect()
+        self.rect = self.image.get_rect()
         self.move = 10
-        self.dizzy = False
         self.hit_countdown = 0
     
     # trying to make the virus flash when it is hit
     def update(self):      
-        if self.hit_coundown:
+        if self.hit_countdown:
             if not hasattr(self):
                 self.original_image = self.image
 

@@ -8,7 +8,7 @@ from map import Map
 # pygame setup
 pygame.init()
 
-SCREEN_WIDTH, SCREEN_HEIGHT = 1920, 1080
+SCREEN_WIDTH, SCREEN_HEIGHT = 1280, 720
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
 clock = pygame.time.Clock()
@@ -24,7 +24,7 @@ imp = pygame.image.load("./assets/testBackground.jpg").convert()
 info = pygame.display.Info()
 player_cell = TCell(20, 20, info.current_h/2, info.current_w/2)
 virus = Virus()
-sprites = pygame.sprite.RenderPlain((player_cell))
+sprites = pygame.sprite.RenderPlain((player_cell, virus))
 
 while running:
     # poll for events
