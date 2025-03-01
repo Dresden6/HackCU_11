@@ -22,7 +22,6 @@ class Map():
                         room_grid[i][j] = generated_rooms[index]
                         index += 1
         # every time you enter a room, render that tile type
-        pass
         
         
     def changeRoom(SCREEN_WIDTH, SCREEN_HEIGHT, rooms, Tcell, room_grid, direction): # rooms is 2D array of tile types
@@ -39,6 +38,8 @@ class Map():
         
         room_surface = pygame.Surface(SCREEN_WIDTH, SCREEN_HEIGHT)
         room_surface.fill((139, 0, 0)) # maroon
+        
+        # here, check content of room in room_grid, then render in objects as specified in the room type
         
         # rendering of obstacles and/or spawning of enemies goes here
         
