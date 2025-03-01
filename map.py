@@ -4,6 +4,9 @@ import random
 class Map():
     
     def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
+        # store constants for width and height inside class for easy access
+        self.SCREEN_WIDTH, self.SCREEN_HEIGHT = SCREEN_WIDTH, SCREEN_HEIGHT
+        
         # make a 2D array at start of program that includes all map tile types
         self.room_types = [0, 1, 2, 3, 4, 5] # types of roms to be filled into the grid, -1 is the start tile, 6 is the end tile
         generated_rooms = random.choices(self.room_types, k = 23)
@@ -33,29 +36,39 @@ class Map():
     def getOverworldY(self):
         return self.overworldY
         
-    def changeRoom(self, SCREEN_WIDTH, SCREEN_HEIGHT, rooms, Tcell, room_grid, direction): # rooms is 2D array of tile types
+    def changeRoom(self, Tcell, roomTypes, direction): # rooms is 2D array of tile types
         
         # determine which direction the player has moved, and update position in overworld
+        # also change the position of the player based on what direction they're coming in from
         if (direction == "north"):
             self.overworldY += 1
+            Tcell.setY(0) # move player's y position to top
         elif (direction == "south"):
             self.overworldY -= 1
+            Tcell.setY(self.SCREEN_HEIGHT) # move player's y position to bottom
         elif (direction == "east"):
             self.overworldX += 1
+            Tcell.setX(self.SCREEN_WIDTH) # move player's x position to right
         elif (direction == "west"):
             self.overworldX -= 1
+            Tcell.setX(0) # move player's x position to left
         
-        room_surface = pygame.Surface(SCREEN_WIDTH, SCREEN_HEIGHT)
-        
-        # here, check content of room in room_grid, then render in background as specified in the room type
-        
-        room_surface.fill((139, 0, 0)) # maroon
-        
-        # rendering of obstacles and/or spawning of enemies goes here
-        
-        
+        # spawn in new room's background, obstacles, and enemies
+        self.spawnRoom(self)
+        self.spawnObstacles(self)
+        self.spawnEnemies(self)
 
+    def spawnRoom(self):
+        room_surface = pygame.Surface(self.SCREEN_WIDTH, self.SCREEN_HEIGHT) # should i be passing this in instead?
         
+        # TODO: look at room type at self.overworldX and self.overworldY, then render the proper room background as specified in self.room_types
         
-    
-    
+        room_surface.fill((139, 0, 0)) # placeholder
+        
+    def spawnObstacles(self):
+        # TODO: look at room type at self.overworldX and self.overworldY, then render the proper obstacles as specified in self.room_types, making sure they don't overlap with the background sprite
+        pass
+        
+    def spawnEnemies(self):
+        # TODO: look at room type at self.overworldX and self.overworldY, then render the proper obstacles as specified in self.room_types, making sure they don't overlap with the background sprite OR the obstacles
+        pass
