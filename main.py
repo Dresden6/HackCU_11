@@ -75,7 +75,10 @@ while running:
             for sprite in sprites:
                 sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (SCREEN_WIDTH, SCREEN_HEIGHT)))
                 pass
-            
+          
+          
+          
+    # Player Movement  
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_a]:
@@ -94,20 +97,21 @@ while running:
 
 
 
+
+
     # Scale sprite coordinates
     for sprite in sprites:
         sprite.rect.center = scaleCoordinates((sprite.x, sprite.y), (SCREEN_WIDTH, SCREEN_HEIGHT)) # Probably a better way to do this
         
     sprites.update()
 
-    # fill the screen with a color to wipe away anything from last frame
-    screen.blit(backgroundImg, (0, 0))
 
-    sprites.draw(screen)
 
-    # screen.blit(imp, (0, 0))
-    
-    # RENDER YOUR GAME HERE
+
+    # Draw Everything
+
+    screen.blit(backgroundImg, (0, 0)) # Draw background
+    sprites.draw(screen) # Draw sprites    
 
     # flip() the display to put your work on screen
     pygame.display.flip()
