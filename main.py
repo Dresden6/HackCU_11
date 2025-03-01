@@ -3,7 +3,7 @@ import pygame
 
 from tcell import TCell
 from virus import Virus
-from map import Barrier
+from map import Map
 
 # pygame setup
 pygame.init()
