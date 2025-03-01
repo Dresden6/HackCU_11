@@ -7,17 +7,16 @@ class TCell(pygame.sprite.Sprite):
         self.width = width
         self.height = height
 
-        # TODO: Update to actual t-cell image
         self.image = pygame.image.load("./assets/tcell/tcell.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
 
         self.x = x
         self.y = y
 
-        self.speed = 2
+        self.speed = 4
 
         self.rect = self.image.get_rect()
-    
+        self.rect.center = (x, y)
 
     def update(self):
         pass
@@ -29,10 +28,10 @@ class TCell(pygame.sprite.Sprite):
         self.rect.x += self.speed
 
     def moveUp(self):
-        self.rect.y += self.speed
+        self.rect.y -= self.speed
 
     def moveDown(self):
-        self.rect.y -= self.speed
+        self.rect.y += self.speed
 
     def getX(self):
         return self.x
