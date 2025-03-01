@@ -39,6 +39,12 @@ class TCell(pygame.sprite.Sprite):
     def getY(self):
         return self.y
     
+    def setX(self, newX):
+        self.rect.x = newX
+    
+    def setY(self, newY):
+        self.rect.y = newY
+    
     def hasMovedRooms(self, SCREEN_WIDTH, SCREEN_HEIGHT): # returns boolean
         # check if player has moved out of bounds
         if self.x < 0:
