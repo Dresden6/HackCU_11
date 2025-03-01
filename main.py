@@ -99,8 +99,10 @@ while running:
         direction = player_cell.findRoomMovementDirection()
         map.changeRoom(direction)
 
-
-    # Virus Movement
+    for virus in viruses:
+        virus_x = virus.getLocation()[0]
+        if (virus_x > SCREEN_WIDTH):
+            virus.speed = -virus.speed
 
     for virus in viruses:
         if (virus.x > SCREEN_WIDTH or virus.x < 0):
