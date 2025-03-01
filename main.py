@@ -62,6 +62,10 @@ while running:
             else:
                 SCREEN_HEIGHT = 9/16 * SCREEN_WIDTH
             
+            if SCREEN_WIDTH < 854 or SCREEN_HEIGHT < 480:
+                SCREEN_WIDTH = 854
+                SCREEN_HEIGHT = 480
+            
             screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE) # Resize window
             backgroundImg = pygame.transform.scale(backgroundImg, (SCREEN_WIDTH, SCREEN_HEIGHT)) # Resize background image
             
