@@ -8,19 +8,17 @@ class TCell(pygame.sprite.Sprite):
         self.height = height
 
         self.image = pygame.image.load("./assets/tcell/tcell.png").convert_alpha()
-        self.image = pygame.transform.scale(self.image, (self.width, self.height))
 
         # x and y are the position in a 1920x1080 screen
         self.x = x
         self.y = y
 
-        self.speed = 4
+        self.speed = 6
 
         self.rect = self.image.get_rect()
-        self.rect.center = (x, y)
+        # self.rect.center = (x, y)
 
     def update(self):
-        self.rect.center = (self.x, self.y)
         pass
 
     def moveLeft(self):
