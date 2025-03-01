@@ -37,7 +37,7 @@ backgroundImg = pygame.image.load("./assets/environment/background.png").convert
 
 info = pygame.display.Info()
 player_cell = TCell(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-basic_virus = Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40)
+viruses = [Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40)]
 map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
 sprites = pygame.sprite.RenderPlain([player_cell] + viruses)
 
@@ -97,12 +97,12 @@ while running:
 
     for virus in viruses:
         virus_x = virus.getLocation()[0]
-        if (virus_x > SCREEN_WIDTH or virus_x < 0):
+        if (virus_x > SCREEN_WIDTH):
             virus.speed = -virus.speed
 
     for virus in viruses:
         virus_x = virus.getLocation()[0]
-        if (virus_x > SCREEN_WIDTH or virus_x < 0):
+        if (virus_x < 0):
             virus.speed = -virus.speed
 
     sprites.update()
