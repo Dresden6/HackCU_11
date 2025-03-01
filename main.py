@@ -67,7 +67,7 @@ while running:
             else:
                 CURR_SCREEN_HEIGHT = 9/16 * CURR_SCREEN_WIDTH
             
-            if SCREEN_WIDTH < 854 or CURR_SCREEN_HEIGHT < 480:
+            if CURR_SCREEN_WIDTH < 854 or CURR_SCREEN_HEIGHT < 480:
                 CURR_SCREEN_WIDTH = 854
                 CURR_SCREEN_HEIGHT = 480
             
