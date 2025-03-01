@@ -8,7 +8,7 @@ from map import Map
 # pygame setup
 pygame.init()
 
-SCREEN_WIDTH, SCREEN_HEIGHT = 1280, 720
+SCREEN_WIDTH, SCREEN_HEIGHT = 1920, 1080
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
 clock = pygame.time.Clock()
