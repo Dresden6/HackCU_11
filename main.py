@@ -47,6 +47,7 @@ sprites = pygame.sprite.RenderPlain([player_cell] + viruses)
 # Scale everything correctly:
 for sprite in sprites:
                 sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
+                sprite.rect.width, sprite.rect.height = scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
 backgroundImg = pygame.transform.scale(backgroundImg, (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
 
 
@@ -114,7 +115,9 @@ while running:
 
     # Lock/Unlock chamber
 
-    # if viruses.__len__ == 0:
+    if viruses.__len__ == 0:
+        
+        pass
 
     
     # Resize coordinates for everything 
