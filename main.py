@@ -94,7 +94,7 @@ while running:
         player_cell.moveDown()
         
     # check if player has moved rooms
-    if (player_cell.hasMovedRooms(1920, 1080)):
+    if (player_cell.hasMovedRooms(SCREEN_WIDTH, SCREEN_HEIGHT)):
         direction = player_cell.findRoomMovementDirection()
         map.changeRoom(direction)
 
