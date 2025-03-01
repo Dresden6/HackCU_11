@@ -31,7 +31,9 @@ class Map():
                 elif column == columns - 1:
                     room_grid[row][column] = "right_edge"
                 else:
-                    room_grid[row][column] = "middle"
+                    room_types = [1,2,3,4,5]
+                    room_type = random.choice(room_types)
+                    room_grid[row][column] = str(room_type)
         
         # set player overworld position to position of start tile
         self.overworldX = 0
