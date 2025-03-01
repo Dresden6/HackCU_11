@@ -35,3 +35,19 @@ class TCell(pygame.sprite.Sprite):
     
     def getY(self):
         return self.y
+    
+    def hasMovedRooms(self, SCREEN_WIDTH, SCREEN_HEIGHT): # returns boolean
+        # check if player has moved out of bounds
+        if self.x < 0:
+            return True
+        elif self.x > SCREEN_WIDTH:
+            return True
+        elif self.y < 0:
+            return True
+        elif self.y > SCREEN_HEIGHT:
+            return True
+        return False
+    
+    def findRoomMovementDirection():
+        #TODO: similar to hasMovedRooms, find the direction the sprite is moving (north, south, east, west), and return as string
+        pass
