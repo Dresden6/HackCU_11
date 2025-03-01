@@ -108,8 +108,10 @@ while running:
             virus.yspeed = -virus.yspeed
 
 
-        
-
+        if (pygame.sprite.collide_circle(virus, player_cell)):
+            print('colliding')
+            if (virus.attacking):
+                running = False
 
 
     # Lock/Unlock chamber
