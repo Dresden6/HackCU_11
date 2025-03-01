@@ -8,10 +8,10 @@ class Map():
         room_types = [0, 1, 2, 3, 4, 5] # types of roms to be filled into the grid, -1 is the start tile, 6 is the end tile
         generated_rooms = random.choices(room_types, k = 23)
         room_grid = [
-            [-1,1,1,1,1]
-            [1,1,1,1,1]
-            [1,1,1,1,1]
-            [1,1,1,1,1]
+            [-1,1,1,1,1],
+            [1,1,1,1,1],
+            [1,1,1,1,1],
+            [1,1,1,1,1],
             [1,1,1,1,6]
         ]
         # populating the grid with the generated rooms
@@ -22,7 +22,6 @@ class Map():
                         room_grid[i][j] = generated_rooms[index]
                         index += 1
         # every time you enter a room, render that tile type
-        pass
         
         
     def changeRoom(SCREEN_WIDTH, SCREEN_HEIGHT, rooms, Tcell, room_grid, direction): # rooms is 2D array of tile types
@@ -39,6 +38,8 @@ class Map():
         
         room_surface = pygame.Surface(SCREEN_WIDTH, SCREEN_HEIGHT)
         room_surface.fill((139, 0, 0)) # maroon
+        
+        # here, check content of room in room_grid, then render in objects as specified in the room type
         
         # rendering of obstacles and/or spawning of enemies goes here
         
