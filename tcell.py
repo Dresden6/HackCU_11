@@ -5,7 +5,7 @@ class TCell(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         # TODO: Update to actual t-cell image
-        self.image = pygame.image.load("./assets/tcell.png").convert_alpha()
+        self.image = pygame.image.load("./assets/tcell/tcell.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (self.image.get_width() * 2, self.image.get_height() * 2))
 
         self.x = x
