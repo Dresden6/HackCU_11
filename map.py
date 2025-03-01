@@ -7,24 +7,31 @@ class Map():
         # store constants for width and height inside class for easy access
         self.SCREEN_WIDTH, self.SCREEN_HEIGHT = SCREEN_WIDTH, SCREEN_HEIGHT
         
-        # make a 2D array at start of program that includes all map tile types
-        self.room_types = [0, 1, 2, 3, 4, 5] # types of roms to be filled into the grid, -1 is the start tile, 6 is the end tile
-        generated_rooms = random.choices(self.room_types, k = 23)
-        self.room_grid = [
-            [-1,1,1,1,1],
-            [1,1,1,1,1],
-            [1,1,1,1,1],
-            [1,1,1,1,1],
-            [1,1,1,1,6]
-        ]
+        rows, columns = 5,5
+        room_grid = [["" for _ in range(columns)] for _ in range(rows)]
         # populating the grid with the generated rooms
-        index = 0
-        for i in range(5):
-            for j in range(5):
-                    if self.room_grid[i][j] != -1 and self.room_grid[i][j] != 6:
-                        self.room_grid[i][j] = generated_rooms[index]
-                        index += 1
-        # every time you enter a room, render that tile type
+        for row in range(rows):
+            for column in range(columns):
+                if row == 0:
+                    if column == 0:
+                        room_grid[row][column] = "start"
+                    elif column == columns - 1:
+                        room_grid[row][column] = "top_right_corner"
+                    else:
+                        room_grid[row][column] = "top_edge"
+                elif row == rows - 1:
+                    if column == columns - 1:
+                        room_grid[row][column] = "finish"
+                    elif column == 0:
+                        room_grid[row][column] = "bottom_left_corner"
+                    else:
+                        room_grid[row][column] = "bottom_edge"
+                elif column == 0:
+                    room_grid[row][column] = "left_edge"
+                elif column == columns - 1:
+                    room_grid[row][column] = "right_edge"
+                else:
+                    room_grid[row][column] = "middle"
         
         # set player overworld position to position of start tile
         self.overworldX = 0
