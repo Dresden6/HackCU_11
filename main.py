@@ -34,6 +34,8 @@ imp = pygame.image.load("./assets/testBackground.jpg").convert()
 info = pygame.display.Info()
 player_cell = TCell(128, 128, info.current_h/2, info.current_w/2)
 basic_virus = Virus(128, 128, info.current_h/2, info.current_w/2)
+map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
+
 sprites = pygame.sprite.RenderPlain((player_cell))
 
 
@@ -63,6 +65,11 @@ while running:
         player_cell.moveUp()
     if keys[pygame.K_UP]:
         player_cell.moveDown()
+        
+    # check if player has moved rooms
+    if (player_cell.hasMovedRooms(SCREEN_WIDTH, SCREEN_HEIGHT)):
+        direction = player_cell.findRoomMovementDirection()
+        map.changeRoom(direction)
 
     sprites.update()
 
