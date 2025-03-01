@@ -5,8 +5,7 @@ class TCell(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         # TODO: Update to actual t-cell image
-        self.image = pygame.Surface([width, height])
-        self.image.fill("#FFFFFF")
+        self.image = pygame.image.load("./assets/WhiteBloodCell.png")
 
         self.x = x
         self.y = y
@@ -29,3 +28,9 @@ class TCell(pygame.sprite.Sprite):
 
     def moveDown(self):
         self.rect.y -= self.speed
+
+    def getX(self):
+        return self.x
+    
+    def getY(self):
+        return self.y
