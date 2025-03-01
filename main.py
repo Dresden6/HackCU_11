@@ -23,11 +23,14 @@ def scaleToScreenSize(size, eventSize):
     
 
 
+
+
+
 pygame.display.set_caption('Biology Platformer')
 
 
 # Create main background image
-imp = pygame.image.load("./assets/testBackground.jpg").convert()
+backgroundImg = pygame.image.load("./assets/environment/background.png").convert()
 
 info = pygame.display.Info()
 player_cell = TCell(20, 20, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
@@ -35,9 +38,11 @@ basic_virus = Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40)
 map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
 sprites = pygame.sprite.RenderPlain((player_cell))
 
+
 # Scale everything correctly:
 for sprite in sprites:
                 sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (SCREEN_WIDTH, SCREEN_HEIGHT)))
+backgroundImg = pygame.transform.scale(backgroundImg, (SCREEN_WIDTH, SCREEN_HEIGHT)) # Resize background image
 
 
 while running:
@@ -58,7 +63,7 @@ while running:
                 SCREEN_HEIGHT = 9/16 * SCREEN_WIDTH
             
             screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE) # Resize window
-            imp = pygame.transform.scale(imp, (SCREEN_WIDTH, SCREEN_HEIGHT)) # Resize background image
+            backgroundImg = pygame.transform.scale(backgroundImg, (SCREEN_WIDTH, SCREEN_HEIGHT)) # Resize background image
             
             for sprite in sprites:
                 sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (SCREEN_WIDTH, SCREEN_HEIGHT)))
@@ -83,7 +88,7 @@ while running:
     sprites.update()
 
     # fill the screen with a color to wipe away anything from last frame
-    screen.blit(imp, (0, 0))
+    screen.blit(backgroundImg, (0, 0))
 
     sprites.draw(screen)
 
