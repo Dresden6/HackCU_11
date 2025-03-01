@@ -3,11 +3,14 @@ import pygame
 
 from tcell import TCell
 from virus import Virus
-from barrier import Barrier
+from map import Barrier
 
 # pygame setup
 pygame.init()
-screen = pygame.display.set_mode((1280, 720))
+
+SCREEN_WIDTH, SCREEN_HEIGHT = 1920, 1080
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 running = True
 
