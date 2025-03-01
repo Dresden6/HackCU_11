@@ -11,11 +11,16 @@ screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True
 
+
 pygame.display.set_caption('Biology Platformer')
 
 
 # create a surface object, image is drawn on it.
 imp = pygame.image.load("./assets/testBackground.jpg").convert()
+
+info = pygame.display.Info()
+player_cell = TCell(20, 20, info.current_h/2, info.current_w/2)
+sprites = pygame.sprite.RenderPlain((player_cell))
 
 while running:
     # poll for events
@@ -24,13 +29,24 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        player_cell.moveLeft()
+    if keys[pygame.K_RIGHT]:
+        player_cell.moveRight()
+    if keys[pygame.K_DOWN]:
+        player_cell.moveUp()
+    if keys[pygame.K_UP]:
+        player_cell.moveDown()
 
+    sprites.update()
 
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("purple")
 
+    sprites.draw(screen)
 
-    screen.blit(imp, (0, 0))
+    # screen.blit(imp, (0, 0))
     
     # RENDER YOUR GAME HERE
 
