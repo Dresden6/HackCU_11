@@ -8,21 +8,38 @@ from map import Map
 # pygame setup
 pygame.init()
 
-SCREEN_WIDTH, SCREEN_HEIGHT = 1280, 720
+SCREEN_WIDTH, SCREEN_HEIGHT = 854, 480
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
 clock = pygame.time.Clock()
 running = True
 
 
+# Calculate scale based on screen size. Should take in a touple of (width, height)
+def scaleToScreenSize(size):
+    width_ratio = SCREEN_WIDTH / 1920
+    height_ratio = SCREEN_HEIGHT / 1080
+    return (int(size[0] * width_ratio), int(size[1] * height_ratio))
+    
+
+
 pygame.display.set_caption('Biology Platformer')
 
 
-# create a surface object, image is drawn on it.
+# Create main background image
 imp = pygame.image.load("./assets/testBackground.jpg").convert()
 
+info = pygame.display.Info()
 player_cell = TCell(20, 20, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+basic_virus = Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40)
+map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
 sprites = pygame.sprite.RenderPlain((player_cell))
+
+
+# Scale everything correctly:
+for sprite in sprites:
+                sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height)))
+
 
 while running:
     # poll for events
@@ -30,6 +47,11 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.VIDEORESIZE:
+            screen = pygame.display.set_mode(event.size, pygame.RESIZABLE)
+            for sprite in sprites:
+                sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height)))
+            
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_a]:
@@ -40,11 +62,16 @@ while running:
         player_cell.moveUp()
     if keys[pygame.K_s]:
         player_cell.moveDown()
+        
+    # check if player has moved rooms
+    if (player_cell.hasMovedRooms(SCREEN_WIDTH, SCREEN_HEIGHT)):
+        direction = player_cell.findRoomMovementDirection()
+        map.changeRoom(direction)
 
     sprites.update()
 
     # fill the screen with a color to wipe away anything from last frame
-    screen.fill("purple")
+    screen.blit(imp, (0, 0))
 
     sprites.draw(screen)
 
