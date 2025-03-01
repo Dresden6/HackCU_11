@@ -23,6 +23,7 @@ imp = pygame.image.load("./assets/testBackground.jpg").convert()
 
 info = pygame.display.Info()
 player_cell = TCell(20, 20, info.current_h/2, info.current_w/2)
+virus = Virus()
 sprites = pygame.sprite.RenderPlain((player_cell))
 
 while running:
