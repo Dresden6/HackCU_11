@@ -3,12 +3,16 @@ from random import randint
 
 class Virus(pygame.sprite.Sprite):
     # creates the virus
-    def __init__(self):
+    def __init__(self, width, height, x, y):
         
+        self.width = width
+        self.height = height
+
+        # TODO: Update to actual t-cell image
         self.image = pygame.image.load("./assets/tcell/virus_idle.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (self.image.get_width() * 2, self.image.get_height() * 2))
         
-        
+
         pygame.sprite.Sprite.__init__(self)
         # screen = pygame.display.get_surface()
         self.area = self.image.get_rect()
