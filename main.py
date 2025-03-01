@@ -29,13 +29,10 @@ pygame.display.set_caption('Biology Platformer')
 # Create main background image
 imp = pygame.image.load("./assets/testBackground.jpg").convert()
 
-
-# Initialize the player cell
 info = pygame.display.Info()
-player_cell = TCell(128, 128, info.current_h/2, info.current_w/2)
-basic_virus = Virus(128, 128, info.current_h/2, info.current_w/2)
+player_cell = TCell(20, 20, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+basic_virus = Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40)
 map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
-
 sprites = pygame.sprite.RenderPlain((player_cell))
 
 
@@ -57,13 +54,13 @@ while running:
             
 
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT]:
+    if keys[pygame.K_a]:
         player_cell.moveLeft()
-    if keys[pygame.K_RIGHT]:
+    if keys[pygame.K_d]:
         player_cell.moveRight()
-    if keys[pygame.K_DOWN]:
+    if keys[pygame.K_w]:
         player_cell.moveUp()
-    if keys[pygame.K_UP]:
+    if keys[pygame.K_s]:
         player_cell.moveDown()
         
     # check if player has moved rooms
