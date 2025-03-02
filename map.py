@@ -160,10 +160,6 @@ class Map():
             Door(64, 16, 0, 1080/2, True, selectedTile.doors[3]),  
         ])
         
-        
-        
-        
-        
         # --------------------------------------------------------------------------------------------------------
         # To be immortalized forever in the hall of shame:
         #
@@ -193,10 +189,6 @@ class Map():
         #      Of that colossal Wreck, boundless and bare
         #      The lone and level functions stretch far away.”
         # --------------------------------------------------------------------------------------------------------
-            
-        
-        
-        # TODO: look at room type at self.overworldX and self.overworldY, then render the proper room using door placements
         
     def spawnObstacles(self, selectedTile):
         # TODO: look at room type at self.overworldX and self.overworldY, then render the proper obstacles as specified in self.room_types, making sure they don't overlap with the background sprite
