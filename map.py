@@ -3,6 +3,7 @@ import random
 from door import Door
 from virus import Virus
 from virus2 import Virus2
+from virus3 import Virus3
 from lock import Lock
 
 class Tile():
@@ -131,8 +132,8 @@ class Map():
             player_cell.setX(0) # move player's x position to left
         
         # spawn in new room's background, obstacles, and enemies
-        print("overworld x: " + (str)(self.overworldX))
-        print("overworld y: " + (str)(self.overworldY))
+        # print("overworld x: " + (str)(self.overworldX))
+        # print("overworld y: " + (str)(self.overworldY))
         selectedTile = self.room_grid[self.overworldY][self.overworldX]
         
         self.despawnOldEntities(selectedTile)
@@ -219,11 +220,20 @@ class Map():
         
         x, y = self.getRandomCoords()
         result.append(Virus2(128, 128, x, y))
+
+        x, y = self.getRandomCoords()
+        result.append(Virus3(128, 128, x, y))
         
         if difficulty > 3:
             x, y = self.getRandomCoords()
             result.append(Virus2(128, 128, x, y))
+        if difficulty > 4: 
+            x, y = self.getRandomCoords()
+            result.append(Virus3(128, 128, x, y))
         if difficulty > 5:
+            x, y = self.getRandomCoords()
+            result.append(Virus2(128, 128, x, y))
+        if difficulty > 6:
             x, y = self.getRandomCoords()
             result.append(Virus2(128, 128, x, y))
         
