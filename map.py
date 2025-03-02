@@ -197,7 +197,9 @@ class Map():
         difficulty = random.randint(3,7)
         result = []
         for i in range(difficulty):
-            result.append(Virus(128, 128, CURR_SCREEN_WIDTH/2, CURR_SCREEN_HEIGHT/2 + 40))
+            x = random.choice(list(range(CURR_SCREEN_WIDTH//8, 3*CURR_SCREEN_WIDTH//8)) + list(range(5*CURR_SCREEN_WIDTH//8, 7*CURR_SCREEN_WIDTH//8)))
+            y = random.choice(list(range(CURR_SCREEN_HEIGHT//8, 3*CURR_SCREEN_HEIGHT//8)) + list(range(5*CURR_SCREEN_HEIGHT//8, 7*CURR_SCREEN_HEIGHT//8)))
+            result.append(Virus(128, 128,  CURR_SCREEN_WIDTH/2 + x, CURR_SCREEN_HEIGHT/2 + y))
         return result
 
         # TODO: look at room type at self.overworldX and self.overworldY, then render the proper obstacles as specified in self.room_types, making sure they don't overlap with the background sprite OR the obstacles

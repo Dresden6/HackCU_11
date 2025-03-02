@@ -81,7 +81,7 @@ while time_loop:
     viruses2 = [Virus2(128, 128, SCREEN_WIDTH/6, SCREEN_HEIGHT/6 + 40)]
     
     
-    sprites = pygame.sprite.RenderPlain([player_cell] + viruses + viruses2)
+    sprites = pygame.sprite.RenderPlain(viruses + viruses2 + [player_cell])
 
 
     # Scale everything correctly:
