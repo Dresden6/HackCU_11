@@ -17,6 +17,16 @@ screen = pygame.display.set_mode((CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT), pygame
 clock = pygame.time.Clock()
 running = True
 
+# returns a formatted time string
+def getTime(timeFromPreviousGames):
+    timeInMilliseconds = pygame.time.get_ticks()
+    timeInMilliseconds = timeInMilliseconds - timeFromPreviousGames
+    totalSeconds = timeInMilliseconds / 1000
+    seconds = totalSeconds % 60
+    minutes = totalSeconds // 60
+    
+    return str(int(minutes)) + " minutes and " + str(int(seconds)) + " seconds."
+
 # Calculate scale based on screen size. Should take in a touple of (width, height)
 def scaleToScreenSize(size, eventSize):
     width_ratio = eventSize[0] / SCREEN_WIDTH
@@ -35,6 +45,7 @@ pygame.display.set_icon(pygame.image.load("./assets/virus/virus_idle.png"))
 font = pygame.font.Font(None, 36)
 
 intro = True
+died = False
 
 time_loop = True
 
@@ -110,6 +121,7 @@ while time_loop:
     bodyCount = 0
     NUM_I_FRAMES = 25
         
+    timeFromPreviousGames = pygame.time.get_ticks()
 
     while running:
         backgroundImg = pygame.transform.scale(backgroundImg, (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
@@ -211,6 +223,7 @@ while time_loop:
                         and player_cell.y <= virus.y + 60 and player_cell.y >= virus.y - 60):
                     if (virus.attacking):
                         running = False
+                        died = True
                     else:
                         virus.kill()
                         virus.remove(sprites)
@@ -258,7 +271,10 @@ while time_loop:
 
         clock.tick(60)  # limits FPS to 60
         
-    print("Your kill count for this round was: " + str(bodyCount))
+    if (died):
+        print("You died, but survived for " + getTime(timeFromPreviousGames))
+    else:
+        print("Congratulations! You cleared the game in " + getTime(timeFromPreviousGames))
     
 
 
