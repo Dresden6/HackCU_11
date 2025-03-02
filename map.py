@@ -147,7 +147,6 @@ class Map():
         pass
 
     def spawnRoom(self, selectedTile):
-        print("new room")
         
         # true = door spawned in; false = door not spawned in
         # a door blocks movement to another room in a different direction
