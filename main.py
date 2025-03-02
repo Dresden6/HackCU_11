@@ -75,12 +75,11 @@ while time_loop:
             time_loop = False
 
     player_cell = TCell(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-    viruses = [Virus(128, 128, CURR_SCREEN_WIDTH/2, CURR_SCREEN_HEIGHT/2 + 40), 
-               Virus(128, 128, CURR_SCREEN_WIDTH/2, CURR_SCREEN_HEIGHT/2 + 40),
-               Virus(128, 128, CURR_SCREEN_WIDTH/2, CURR_SCREEN_HEIGHT/2 + 40)]
+    map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
+    viruses = map.spawnEnemies()
     viruses2 = [Virus2(128, 128, SCREEN_WIDTH/6, SCREEN_HEIGHT/6 + 40)]
     
-    map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
+    
     sprites = pygame.sprite.RenderPlain([player_cell] + viruses + viruses2)
 
 

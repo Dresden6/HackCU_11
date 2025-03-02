@@ -1,5 +1,7 @@
 import pygame
 import random
+from virus import Virus
+from virus2 import Virus2
 
 class Tile():
     def __init__(self):
@@ -164,8 +166,11 @@ class Map():
         # TODO: look at room type at self.overworldX and self.overworldY, then render the proper obstacles as specified in self.room_types, making sure they don't overlap with the background sprite
         pass
         
-    def spawnEnemies(self, selectedTile):
-        
-        
+    def spawnEnemies(self):
+        CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT = 854, 480
+        return [Virus(128, 128, CURR_SCREEN_WIDTH/2, CURR_SCREEN_HEIGHT/2 + 40), 
+               Virus(128, 128, CURR_SCREEN_WIDTH/2, CURR_SCREEN_HEIGHT/2 + 40),
+               Virus(128, 128, CURR_SCREEN_WIDTH/2, CURR_SCREEN_HEIGHT/2 + 40)]
+
         # TODO: look at room type at self.overworldX and self.overworldY, then render the proper obstacles as specified in self.room_types, making sure they don't overlap with the background sprite OR the obstacles
         pass
