@@ -205,7 +205,7 @@ class Map():
         pass
 
     def getRandomCoords(self):
-        CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT = 854, 480
+        CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT = 1920, 1080
         x = random.choice(list(range(CURR_SCREEN_WIDTH//8, 3*CURR_SCREEN_WIDTH//8)) + list(range(5*CURR_SCREEN_WIDTH//8, 7*CURR_SCREEN_WIDTH//8)))
         y = random.choice(list(range(CURR_SCREEN_HEIGHT//8, 3*CURR_SCREEN_HEIGHT//8)) + list(range(5*CURR_SCREEN_HEIGHT//8, 7*CURR_SCREEN_HEIGHT//8)))
         return (x, y)
