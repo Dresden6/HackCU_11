@@ -86,7 +86,8 @@ while (intro):
             time_loop = False
 
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_a] or keys[pygame.K_d] or keys[pygame.K_w] or keys[pygame.K_s]:
+    if keys[pygame.K_a] or keys[pygame.K_d] or keys[pygame.K_w] or keys[pygame.K_s] \
+        or keys[pygame.K_UP] or keys[pygame.K_DOWN] or keys[pygame.K_LEFT] or keys[pygame.K_]:
         intro = False
     
     screen.fill((0, 0, 0))
@@ -119,15 +120,13 @@ collected = {}
 while time_loop:
     
     if numTries > 0:
+        screen.fill((0, 0, 0))
         if(died):
-            screen.fill((0, 0, 0))
             text = font.render("You Died", True, "#bd0000")
             screen.blit(text, (CURR_SCREEN_WIDTH/2 - text.get_width()/2 - 5, CURR_SCREEN_HEIGHT/2 - text.get_height()/2 - 5))
 
             pygame.display.flip()
-            pygame.time.delay(2000)
-            
-            screen.fill((0, 0, 0))
+            pygame.time.delay(2000)            
         
         if (died):
             message = font.render("You survived for " + (getTime(timeFromPreviousGames + 2000)), True, "#FFFFFF")
@@ -138,8 +137,6 @@ while time_loop:
         
         screen.blit(message, ((CURR_SCREEN_WIDTH/4) - text.get_width()/4, 1*(CURR_SCREEN_HEIGHT/3) - (text.get_height()/3)))
         screen.blit(text, (CURR_SCREEN_WIDTH/2 - text.get_width()/2, 2*(CURR_SCREEN_HEIGHT/3) - (text.get_height()/3)))
-        
-        
 
         pygame.display.flip()
         pygame.time.delay(2000)
@@ -228,23 +225,14 @@ while time_loop:
         # Player Movement  
 
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_a]:
+        if keys[pygame.K_a] or keys[pygame.K_LEFT]:
             player_cell.moveLeft()
-        if keys[pygame.K_d]:
+        if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
             player_cell.moveRight()
-        if keys[pygame.K_w]:
+        if keys[pygame.K_w] or keys[pygame.K_UP]:
             player_cell.moveUp()
-        if keys[pygame.K_s]:
-            player_cell.moveDown()
-        if keys[pygame.K_LEFT]:
-            player_cell.moveLeft()
-        if keys[pygame.K_RIGHT]:
-            player_cell.moveRight()
-        if keys[pygame.K_UP]:
-            player_cell.moveUp()
-        if keys[pygame.K_DOWN]:
-            player_cell.moveDown()
-            
+        if keys[pygame.K_s] or keys[pygame.K_DOWN]:
+            player_cell.moveDown()            
             
             
         # check if player has moved rooms
