@@ -97,6 +97,9 @@ class Map():
     def getOverworldY(self):
         return self.overworldY
     
+    def clearCurrentRoom(self):
+        self.room_grid[self.overworldX, self.overworldY].cleared = True
+    
     def movingOffMap(self, direction):
         if ((direction == "north" and (self.overworldY <= 0))
             or (direction == "south" and (self.overworldY >= self.MAP_ROWS - 1))
@@ -109,6 +112,8 @@ class Map():
         
         # determine which direction the player has moved, and update position in overworld
         # also change the position of the player based on what direction they're coming in from
+        
+        #TODO: Fix players not actually teleporting to correct position
 
         if (direction == "north"):
             self.overworldY -= 1

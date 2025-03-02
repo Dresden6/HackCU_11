@@ -34,8 +34,6 @@ def scaleCoordinates(coords, eventSize):
 
 pygame.display.set_caption('Biology Platformer')
 
-py
-
 # Create main background image
 backgroundImg = pygame.image.load("./assets/environment/background.png").convert()
 
@@ -117,6 +115,7 @@ while time_loop:
             direction = player_cell.findRoomMovementDirection(SCREEN_WIDTH, SCREEN_HEIGHT)
             if (not map.movingOffMap(direction)):
                 map.changeRoom(player_cell, direction)
+                # TODO: add a screen change here to indicate to the player they changed positions
             
         if (player_cell.backToMiddle(SCREEN_WIDTH, SCREEN_HEIGHT)):
             eligibleToMoveRooms = True
@@ -127,6 +126,9 @@ while time_loop:
                 virus.xspeed = -virus.xspeed
             if (virus.y > SCREEN_HEIGHT or virus.y < 0):
                 virus.yspeed = -virus.yspeed
+                
+        if (len(viruses) == 0):
+            map.clearCurrentRoom()
 
 
         # for virus in viruses2:
