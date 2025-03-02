@@ -17,7 +17,6 @@ screen = pygame.display.set_mode((CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT), pygame
 clock = pygame.time.Clock()
 running = True
 
-
 # Calculate scale based on screen size. Should take in a touple of (width, height)
 def scaleToScreenSize(size, eventSize):
     width_ratio = eventSize[0] / 1920
@@ -30,14 +29,44 @@ def scaleCoordinates(coords, eventSize):
     height_ratio = eventSize[1] / 1080
     return (int(coords[0] * width_ratio), int(coords[1] * height_ratio))
 
-
-
 pygame.display.set_caption('Biology Platformer')
+
+font = pygame.font.Font(None, 36)
+
+intro = True
+
+time_loop = True
+
+while (intro):
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            intro = False
+            time_loop = False
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_a] or keys[pygame.K_d] or keys[pygame.K_w] or keys[pygame.K_s]:
+        intro = False
+    
+    screen.fill((0, 0, 0))
+    text = font.render("going viral", True, "#FFFFFF")
+    screen.blit(text, (100, 100))
+
+    text = font.render("we're under attack! you are a white blood cell, ", True, "#FFFFFF")
+    screen.blit(text, (100, 180))
+
+    text = font.render("and your job is to protect us from viruses.", True, "#FFFFFF")
+    screen.blit(text, (100, 220))
+
+    text = font.render("(WASD to start)", True, "#FFFFFF")
+    screen.blit(text, (100, 260))
+    pygame.display.flip()
+
+
 
 # Create main background image
 backgroundImg = pygame.image.load("./assets/environment/background.png").convert()
 
-time_loop = True
+collected = {}
 
 while time_loop:
 
@@ -46,11 +75,9 @@ while time_loop:
             time_loop = False
 
     player_cell = TCell(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-    
-    #TODO: move virus spawning to spawnEnemies() function in map, then change num enemies based on room type
-    viruses = [Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40), 
-               Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40),
-               Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40)]
+    viruses = [Virus(128, 128, CURR_SCREEN_WIDTH/2, CURR_SCREEN_HEIGHT/2 + 40), 
+               Virus(128, 128, CURR_SCREEN_WIDTH/2, CURR_SCREEN_HEIGHT/2 + 40),
+               Virus(128, 128, CURR_SCREEN_WIDTH/2, CURR_SCREEN_HEIGHT/2 + 40)]
     viruses2 = [Virus2(128, 128, SCREEN_WIDTH/6, SCREEN_HEIGHT/6 + 40)]
     
     map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
