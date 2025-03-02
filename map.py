@@ -118,8 +118,6 @@ class Map():
         # determine which direction the player has moved, and update position in overworld
         # also change the position of the player based on what direction they're coming in from
         
-        #TODO: Fix players not actually teleporting to correct position
-
         if (direction == "north"):
             self.overworldY -= 1
             player_cell.setY(0) # move player's y position to top
