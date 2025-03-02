@@ -18,11 +18,11 @@ class Map():
         # store constants for width and height inside class for easy access
         self.SCREEN_WIDTH, self.SCREEN_HEIGHT = SCREEN_WIDTH, SCREEN_HEIGHT
         
-        rows, columns = 5,5
-        self.room_grid = [["" for _ in range(columns)] for _ in range(rows)]
+        self.MAP_ROWS, self.MAP_COLUMNS = 5,5
+        self.room_grid = [["" for _ in range(self.MAP_COLUMNS)] for _ in range(self.MAP_ROWS)]
         # populating the grid with the generated rooms
-        for row in range(rows):
-            for column in range(columns):
+        for row in range(self.MAP_ROWS):
+            for column in range(self.MAP_COLUMNS):
                 if row == 0:
                     if column == 0:
                         new_tile = Tile()
@@ -30,7 +30,7 @@ class Map():
                         new_tile.doors[1] = False
                         new_tile.doors[3] = False
                         self.room_grid[row][column] = new_tile
-                    elif column == columns - 1:
+                    elif column == self.MAP_COLUMNS - 1:
                         new_tile = Tile()
                         new_tile.name = "top_right_corner"
                         new_tile.doors[2] = False
@@ -43,8 +43,8 @@ class Map():
                         new_tile.doors[2] = False
                         new_tile.doors[3] = False
                         self.room_grid[row][column] = new_tile
-                elif row == rows - 1:
-                    if column == columns - 1:
+                elif row == self.MAP_ROWS - 1:
+                    if column == self.MAP_COLUMNS - 1:
                         new_tile = Tile()
                         new_tile.name = "finish"
                         new_tile.doors[0] = False
@@ -70,7 +70,7 @@ class Map():
                     new_tile.doors[1] = False
                     new_tile.doors[2] = False
                     self.room_grid[row][column] = new_tile
-                elif column == columns - 1:
+                elif column == self.MAP_COLUMNS - 1:
                     new_tile = Tile()
                     new_tile.name = "right_edge"
                     new_tile.doors[0] = False
@@ -96,12 +96,20 @@ class Map():
         
     def getOverworldY(self):
         return self.overworldY
+    
+    def movingOffMap(self, direction):
+        if ((direction == "north" and (self.overworldY <= 0))
+            or (direction == "south" and (self.overworldY >= self.MAP_ROWS - 1))
+            or (direction == "west" and (self.overworldX >= 0))
+            or (direction == "east" and (self.overworldX >= self.MAP_COLUMNS - 1))):
+            return True
+        return False
         
     def changeRoom(self, player_cell, direction): # rooms is 2D array of tile types
         
         # determine which direction the player has moved, and update position in overworld
         # also change the position of the player based on what direction they're coming in from
-        #TODO: block the player from moving outside the bounds of the overworld
+
         if (direction == "north"):
             self.overworldY -= 1
             player_cell.setY(0) # move player's y position to top
