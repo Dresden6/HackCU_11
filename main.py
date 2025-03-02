@@ -127,11 +127,10 @@ while time_loop:
 
             pygame.display.flip()
             pygame.time.delay(2000)            
-        
-        if (died):
+
             message = font.render("You survived for " + (getTime(timeFromPreviousGames + 2000)), True, "#FFFFFF")
         else:
-            message = font.render("Congratulations! You cleared the game in " + (getTime(timeFromPreviousGames)), True, "#FFFFFF")
+            message = font.render("Congrats! You cleared the game in " + (getTime(timeFromPreviousGames)), True, "#FFFFFF")
             
         text = font.render("Keep fighting!!", True, "#FFFFFF")
         
@@ -182,6 +181,7 @@ while time_loop:
 
     eligibleToMoveRooms = False # default value for flag having to do with map crossing
     running = True
+    died = False
     
     bodyCount = 0
     NUM_I_FRAMES = 25
@@ -296,8 +296,7 @@ while time_loop:
             if (isinstance(virus, Virus2)):
                 virus.changeVelocityTowardsPlayer((player_cell.x, player_cell.y))
     
-        
-        if (len(viruses) == 0 and map.overworldX == 4 and map.overworldY == 4):
+        if (len(sprites) == 1 and map.overworldX == 4 and map.overworldY == 4):
             running = False
 
         # Resize coordinates for everything 
