@@ -173,7 +173,7 @@ while time_loop:
 
     player_cell = TCell(140, 140, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
-    viruses = map.spawnEnemies()    
+    viruses = map.spawnEnemies(3)
     
     sprites = pygame.sprite.RenderPlain([player_cell] + viruses)
 
@@ -253,7 +253,8 @@ while time_loop:
                 backgroundIdx = random.randint(0, 2)
                 pygame.time.delay(250)
                 #respwanws viruses when changing rooms
-                viruses = map.spawnEnemies()
+                difficulty = random.randint(4,7)
+                viruses = map.spawnEnemies(difficulty)
                 
                 
                 sprites = pygame.sprite.RenderPlain([player_cell] + viruses)

@@ -210,9 +210,8 @@ class Map():
         y = random.choice(list(range(CURR_SCREEN_HEIGHT//8, 3*CURR_SCREEN_HEIGHT//8)) + list(range(5*CURR_SCREEN_HEIGHT//8, 7*CURR_SCREEN_HEIGHT//8)))
         return (x, y)
         
-    def spawnEnemies(self):
+    def spawnEnemies(self, difficulty):
         
-        difficulty = random.randint(3,7)
         result = []
         for i in range(difficulty):
             x, y = self.getRandomCoords()
