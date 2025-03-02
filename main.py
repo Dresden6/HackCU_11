@@ -34,7 +34,6 @@ def scaleCoordinates(coords, eventSize):
 
 pygame.display.set_caption('Biology Platformer')
 
-py
 
 # Create main background image
 backgroundImg = pygame.image.load("./assets/environment/background.png").convert()
