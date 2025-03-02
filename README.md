@@ -1,6 +1,6 @@
-# HackCU_11
+# HackCU_11 -- Gone Viral
 
->[!warning]
+>[!Note]
 > Group members:
 > Dresden, Matvey, Ameenah, Alex, Saanika
 > 
