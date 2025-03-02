@@ -130,7 +130,7 @@ while time_loop:
             screen.fill((0, 0, 0))
         
         if (died):
-            message = font.render("But, you survived for " + (getTime(timeFromPreviousGames + 2000)), True, "#FFFFFF")
+            message = font.render("You survived for " + (getTime(timeFromPreviousGames + 2000)), True, "#FFFFFF")
         else:
             message = font.render("Congratulations! You cleared the game in " + (getTime(timeFromPreviousGames)), True, "#FFFFFF")
             
@@ -175,7 +175,7 @@ while time_loop:
     map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
     viruses = map.spawnEnemies(3)
     
-    sprites = pygame.sprite.RenderPlain([player_cell] + viruses)
+    sprites = pygame.sprite.RenderPlain(viruses + [player_cell])
 
 
     # Scale everything correctly:
