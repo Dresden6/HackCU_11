@@ -121,7 +121,6 @@ collected = {}
 while time_loop:
     
     if numTries > 0:
-        screen.fill((0, 0, 0))
         if(died):
             # screen.fill((0, 0, 0))
             # text = font.render("You Died", True, "#bd0000")
@@ -138,7 +137,7 @@ while time_loop:
             screen.fill((0, 0, 0))
         
         if (died):
-            message = font.render("But, you survived for " + (getTime(timeFromPreviousGames + (30*60+1000))), True, "#FFFFFF")
+            message = font.render("But, you survived for " + (getTime(timeFromPreviousGames + (35*40+1500))), True, "#FFFFFF")
         else:
             message = font.render("Congratulations! You cleared the game in " + (getTime(timeFromPreviousGames)), True, "#FFFFFF")
             
