@@ -119,19 +119,20 @@ collected = {}
 while time_loop:
     
     if numTries > 0:
-        screen.fill((0, 0, 0))
-        text = font.render("You Died", True, "#bd0000")
-        screen.blit(text, (CURR_SCREEN_WIDTH/2 - text.get_width()/2 - 5, CURR_SCREEN_HEIGHT/2 - text.get_height()/2 - 5))
+        if(died):
+            screen.fill((0, 0, 0))
+            text = font.render("You Died", True, "#bd0000")
+            screen.blit(text, (CURR_SCREEN_WIDTH/2 - text.get_width()/2 - 5, CURR_SCREEN_HEIGHT/2 - text.get_height()/2 - 5))
 
-        pygame.display.flip()
-        pygame.time.delay(2000)
-        
-        screen.fill((0, 0, 0))
+            pygame.display.flip()
+            pygame.time.delay(2000)
+            
+            screen.fill((0, 0, 0))
         
         if (died):
             message = font.render("But, you survived for " + (getTime(timeFromPreviousGames + 2000)), True, "#FFFFFF")
         else:
-            message = font.render("Congratulations! You cleared the game in " + (getTime(timeFromPreviousGames + 2000)), True, "#FFFFFF")
+            message = font.render("Congratulations! You cleared the game in " + (getTime(timeFromPreviousGames)), True, "#FFFFFF")
             
         text = font.render("Keep fighting!!", True, "#FFFFFF")
         
