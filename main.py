@@ -123,7 +123,7 @@ while time_loop:
                 #     sprite.rect.width, sprite.rect.height = scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
                 #     pass
             
-            
+        
             
         # Player Movement  
 
@@ -155,10 +155,16 @@ while time_loop:
                 virus.xspeed = -virus.xspeed
             if (virus.y > SCREEN_HEIGHT or virus.y < 0):
                 virus.yspeed = -virus.yspeed
-                
+            
+            if (pygame.sprite.collide_rect(virus, player_cell)):
+                if (virus.attacking):
+                    running = False
+                elif (player_cell.x <= virus.x + 10 and player_cell.x >= virus.x - 10
+                        and player_cell.y <= virus.y + 10 and player_cell.y >= virus.y - 10):
+                    virus.kill()
+        
         if (len(viruses) == 0):
             map.clearCurrentRoom()
-
 
         # for virus in viruses2:
         #     virus.changeVelocityTowardsPlayer((player_cell.x, player_cell.y))
@@ -167,14 +173,6 @@ while time_loop:
         #             virus.xspeed = -virus.xspeed
         #         if (virus.y > SCREEN_HEIGHT or virus.y < 0):
         #             virus.yspeed = -virus.yspeed
-
-
-            if (pygame.sprite.collide_rect(virus, player_cell)):
-                if (virus.attacking):
-                    running = False
-                elif (player_cell.x <= virus.x + 10 and player_cell.x >= virus.x - 10
-                        and player_cell.y <= virus.y + 10 and player_cell.y >= virus.y - 10):
-                    virus.kill()
 
         
         # Resize coordinates for everything 
