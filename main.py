@@ -142,7 +142,9 @@ while time_loop:
         if (player_cell.hasMovedRooms(SCREEN_WIDTH, SCREEN_HEIGHT) and eligibleToMoveRooms):
             eligibleToMoveRooms = False
             direction = player_cell.findRoomMovementDirection(SCREEN_WIDTH, SCREEN_HEIGHT)
-            map.changeRoom(player_cell, direction)
+            if (not map.movingOffMap(direction)):
+                map.changeRoom(player_cell, direction)
+                # TODO: add a screen change here to indicate to the player they changed positions
             
         if (player_cell.backToMiddle(SCREEN_WIDTH, SCREEN_HEIGHT)):
             eligibleToMoveRooms = True
@@ -153,6 +155,9 @@ while time_loop:
                 virus.xspeed = -virus.xspeed
             if (virus.y > SCREEN_HEIGHT or virus.y < 0):
                 virus.yspeed = -virus.yspeed
+                
+        if (len(viruses) == 0):
+            map.clearCurrentRoom()
 
 
         # for virus in viruses2:
