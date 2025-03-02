@@ -295,16 +295,11 @@ while time_loop:
                     # bodyCount == len(viruses) - 1
             if (isinstance(virus, Virus2)):
                 virus.changeVelocityTowardsPlayer((player_cell.x, player_cell.y))
-
-         
     
-                    
         
-        if (len(sprites) == 1):
-            # map.clearCurrentRoom()
-            pass
+        if (len(viruses) == 0 and map.overworldX == 4 and map.overworldY == 4):
+            running = False
 
-        
         # Resize coordinates for everything 
         for sprite in sprites:
             sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
