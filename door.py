@@ -41,10 +41,6 @@ class Door(pygame.sprite.Sprite):
             else:
                 self.image = self.door_image
         
-        
-        
-
-    
 
     def rotate(self, angle):
         self.image = pygame.transform.rotate(self.image, angle)

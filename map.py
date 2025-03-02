@@ -3,6 +3,7 @@ import random
 from door import Door
 from virus import Virus
 from virus2 import Virus2
+from lock import Lock
 
 class Tile():
     def __init__(self):
@@ -159,8 +160,14 @@ class Map():
         ])
         
         
-        if(selectedTile.doors[0]):
-            self.locks.add()
+        if(not selectedTile.doors[0]):
+            Lock(64, 64, self.SCREEN_WIDTH/2, 30).add(self.locks)
+        if(not selectedTile.doors[1]):
+            Lock(64, 64, self.SCREEN_WIDTH - 30, self.SCREEN_HEIGHT/2).add(self.locks)
+        if(not selectedTile.doors[2]):
+            Lock(64, 64, self.SCREEN_WIDTH/2, self.SCREEN_HEIGHT - 30).add(self.locks)
+        if(not selectedTile.doors[3]):
+            Lock(64, 64, 30, self.SCREEN_HEIGHT).add(self.locks)
             
         
         # --------------------------------------------------------------------------------------------------------

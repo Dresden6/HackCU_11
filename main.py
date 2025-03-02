@@ -109,8 +109,7 @@ while time_loop:
     
     bodyCount = 0
     NUM_I_FRAMES = 25
-    
-    
+        
 
     while running:
         backgroundImg = pygame.transform.scale(backgroundImg, (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
@@ -163,7 +162,7 @@ while time_loop:
             
         # check if player has moved rooms
         
-        if (len(viruses) == 0):
+        if (len(sprites) == 1):
             eligibleToMoveRooms = True
         
         if (player_cell.hasMovedRooms(SCREEN_WIDTH, SCREEN_HEIGHT) and eligibleToMoveRooms):
@@ -199,7 +198,6 @@ while time_loop:
                     player_cell.x = 0 + 64
             
         # if (player_cell.backToMiddle(SCREEN_WIDTH, SCREEN_HEIGHT)):
-            eligibleToMoveRooms = True
 
 
         for virus in viruses:
@@ -215,13 +213,18 @@ while time_loop:
                         running = False
                     else:
                         virus.kill()
+                        virus.remove(sprites)
                     # bodyCount == len(viruses) - 1
             if (isinstance(virus, Virus2)):
                 virus.changeVelocityTowardsPlayer((player_cell.x, player_cell.y))
 
+         
+    
+                    
         
-        if (len(viruses) == 0):
-            map.clearCurrentRoom()
+        if (len(sprites) == 1):
+            # map.clearCurrentRoom()
+            pass
 
         
         # Resize coordinates for everything 
@@ -233,12 +236,15 @@ while time_loop:
         sprites.update()
         
         
-        # Resize coordinates for everything 
         for door in map.doors:
             door.image = pygame.transform.scale(door.image, scaleToScreenSize((door.width, door.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
             door.rect.width, door.rect.height = scaleToScreenSize((door.width, door.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
             door.rect.center = scaleCoordinates((door.x, door.y), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Probably a better way to do this
 
+        for lock in map.locks:
+            lock.image = pygame.transform.scale(lock.image, scaleToScreenSize((lock.width, lock.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
+            lock.rect.width, lock.rect.height = scaleToScreenSize((lock.width, lock.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
+            lock.rect.center = scaleCoordinates((lock.x, lock.y), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Probably a better way to do this
 
         # Draw Everything
 
