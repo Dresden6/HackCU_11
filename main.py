@@ -147,19 +147,18 @@ while time_loop:
             if (not map.movingOffMap(direction)):
                 screen.fill((0,0,0))
                 pygame.display.flip()
-                pygame.time.delay(500)
+                pygame.time.delay(250)
                 map.changeRoom(player_cell, direction)
-                # TODO: add a screen change here to indicate to the player they changed positions
                 
                 # Move player to correct place
                 if direction == "north":
-                    player_cell.y = SCREEN_HEIGHT - player_cell.height 
+                    player_cell.y = SCREEN_HEIGHT - 64
                 elif direction == "south":
-                    player_cell.y = 0 + player_cell.height 
+                    player_cell.y = 0 + 64
                 elif direction == "west":
-                    player_cell.x = SCREEN_WIDTH - player_cell.width 
+                    player_cell.x = SCREEN_WIDTH - 64
                 elif direction == "east":
-                    player_cell.x = 0 + player_cell.width 
+                    player_cell.x = 0 + 64
             
         # if (player_cell.backToMiddle(SCREEN_WIDTH, SCREEN_HEIGHT)):
             eligibleToMoveRooms = True
@@ -178,18 +177,24 @@ while time_loop:
                         and player_cell.y <= virus.y + 10 and player_cell.y >= virus.y - 10):
                     virus.kill()
                     # bodyCount == len(viruses) - 1
+                 
+                    
+        for virus2 in viruses2:
+            if (pygame.sprite.collide_rect(virus2, player_cell)):
+                if (virus2.attacking):
+                    running = False
+                elif (player_cell.x <= virus2.x + 10 and player_cell.x >= virus2.x - 10
+                        and player_cell.y <= virus2.y + 10 and player_cell.y >= virus2.y - 10):
+                    virus2.kill()
+                    # bodyCount == len(viruses) - 1
                     
         
         if (len(viruses) == 0):
             map.clearCurrentRoom()
 
-        # for virus in viruses2:
-        #     virus.changeVelocityTowardsPlayer((player_cell.x, player_cell.y))
-        #     for virus in viruses:
-        #         if (virus.x > SCREEN_WIDTH or virus.x < 0):
-        #             virus.xspeed = -virus.xspeed
-        #         if (virus.y > SCREEN_HEIGHT or virus.y < 0):
-        #             virus.yspeed = -virus.yspeed
+        for virus in viruses2:
+            virus.changeVelocityTowardsPlayer((player_cell.x, player_cell.y))
+            virus._move()
 
         # Resize coordinates for everything 
         for sprite in sprites:
@@ -198,6 +203,7 @@ while time_loop:
             sprite.rect.center = scaleCoordinates((sprite.x, sprite.y), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Probably a better way to do this
 
         sprites.update()
+        
         
         # Resize coordinates for everything 
         for door in map.doors:

@@ -65,12 +65,12 @@ class TCell(pygame.sprite.Sprite):
     
     
     def findRoomMovementDirection(self, SCREEN_WIDTH, SCREEN_HEIGHT):
-        if self.x < 0:
+        if self.x < 2:
             return "west"
-        elif self.x > SCREEN_WIDTH:
+        elif self.x > SCREEN_WIDTH - 2:
             return "east"
-        elif self.y < 0:
+        elif self.y < 2:
             return "north"
-        elif self.y > SCREEN_HEIGHT:
+        elif self.y > SCREEN_HEIGHT - 2:
             return "south"
         return None

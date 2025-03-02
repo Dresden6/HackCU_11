@@ -14,10 +14,12 @@ class Virus2(Virus):
         
         self.rotation = 0
         
+        self.maxspeed = 5
+        
     def _move(self):
         
-        self.rect.x += self.xspeed
-        self.rect.y += self.yspeed
+        self.x += self.xspeed
+        self.y += self.yspeed
 
         
     def attack(self):
@@ -32,22 +34,39 @@ class Virus2(Virus):
         
     def changeVelocityTowardsPlayer(self, playerCoords):
         
-        rotation = math.atan2(playerCoords[1] - self.rect.y, playerCoords[0] - self.rect.x)
+        errx = playerCoords[0] - self.x
+        erry = self.y - playerCoords[1]
         
-        error = self.rotation - rotation
         
+        maxAcc = 0.1
         
         # Clamp error
-        if error > 0.01:
-            error = 0.01
-        elif error < -0.01:
-            error = -0.01
+        if errx > maxAcc:
+            errx = maxAcc
+        elif errx < -maxAcc:
+            errx = -maxAcc
             
-        self.rotation -= error # Adjust rotation        
+        if erry > maxAcc:
+            erry = maxAcc
+        elif erry < -maxAcc:
+            erry = -maxAcc
+            
+            
         
         # Calc speeds
-        self.xspeed = self.maxspeed * math.cos(self.rotation)
-        self.yspeed = self.maxspeed * math.sin(self.rotation)
+        self.xspeed += errx
+        self.yspeed -= erry 
+        
+        # Clamp speeds
+        if self.xspeed > self.maxspeed:
+            self.xspeed = self.maxspeed
+        elif self.xspeed < -self.maxspeed:
+            self.xspeed = -self.maxspeed
+
+        if self.yspeed > self.maxspeed:
+            self.yspeed = self.maxspeed
+        elif self.yspeed < -self.maxspeed:
+            self.yspeed = -self.maxspeed
         
         print(self.xspeed, self.yspeed)
         

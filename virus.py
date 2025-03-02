@@ -25,7 +25,7 @@ class Virus(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (self.image.get_width() * 2, self.image.get_height() * 2))
         
         self.rect = self.image.get_rect()
-        self.xspeed = randint(-self.maxspeed, self.maxspeed) # TODO Randomize location & have a min speed
+        self.xspeed = randint(-self.maxspeed, self.maxspeed) 
         self.yspeed = randint(-self.maxspeed, self.maxspeed)
         self.hit_countdown = 0
     
