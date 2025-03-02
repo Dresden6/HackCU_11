@@ -17,7 +17,6 @@ screen = pygame.display.set_mode((CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT), pygame
 clock = pygame.time.Clock()
 running = True
 
-
 # Calculate scale based on screen size. Should take in a touple of (width, height)
 def scaleToScreenSize(size, eventSize):
     width_ratio = eventSize[0] / 1920
@@ -30,14 +29,44 @@ def scaleCoordinates(coords, eventSize):
     height_ratio = eventSize[1] / 1080
     return (int(coords[0] * width_ratio), int(coords[1] * height_ratio))
 
-
-
 pygame.display.set_caption('Biology Platformer')
+
+font = pygame.font.Font(None, 36)
+
+intro = True
+
+time_loop = True
+
+while (intro):
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            intro = False
+            time_loop = False
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_a] or keys[pygame.K_d] or keys[pygame.K_w] or keys[pygame.K_s]:
+        intro = False
+    
+    screen.fill((0, 0, 0))
+    text = font.render("going viral", True, "#FFFFFF")
+    screen.blit(text, (100, 100))
+
+    text = font.render("we're under attack! you are a white blood cell, ", True, "#FFFFFF")
+    screen.blit(text, (100, 180))
+
+    text = font.render("and your job is to protect us from viruses.", True, "#FFFFFF")
+    screen.blit(text, (100, 220))
+
+    text = font.render("(WASD to start)", True, "#FFFFFF")
+    screen.blit(text, (100, 260))
+    pygame.display.flip()
+
+
 
 # Create main background image
 backgroundImg = pygame.image.load("./assets/environment/background.png").convert()
 
-time_loop = True
+collected = {}
 
 while time_loop:
 
@@ -46,11 +75,9 @@ while time_loop:
             time_loop = False
 
     player_cell = TCell(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-    
-    #TODO: move virus spawning to spawnEnemies() function in map, then change num enemies based on room type
-    viruses = [Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40), 
-               Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40),
-               Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40)]
+    viruses = [Virus(128, 128, CURR_SCREEN_WIDTH/2, CURR_SCREEN_HEIGHT/2 + 40), 
+               Virus(128, 128, CURR_SCREEN_WIDTH/2, CURR_SCREEN_HEIGHT/2 + 40),
+               Virus(128, 128, CURR_SCREEN_WIDTH/2, CURR_SCREEN_HEIGHT/2 + 40)]
     viruses2 = [Virus2(128, 128, SCREEN_WIDTH/6, SCREEN_HEIGHT/6 + 40)]
     
     map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -65,8 +92,11 @@ while time_loop:
 
     eligibleToMoveRooms = True # default value for flag having to do with map crossing
     running = True
+    
+    # bodyCount = 0
 
     while running:
+        
         # poll for events
         # pygame.QUIT event means the user clicked X to close your window
         for event in pygame.event.get():
@@ -96,7 +126,7 @@ while time_loop:
                 #     sprite.rect.width, sprite.rect.height = scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
                 #     pass
             
-            
+        
             
         # Player Movement  
 
@@ -128,10 +158,18 @@ while time_loop:
                 virus.xspeed = -virus.xspeed
             if (virus.y > SCREEN_HEIGHT or virus.y < 0):
                 virus.yspeed = -virus.yspeed
-                
+
+            if (pygame.sprite.collide_rect(virus, player_cell)):
+                if (virus.attacking):
+                    running = False
+                elif (player_cell.x <= virus.x + 10 and player_cell.x >= virus.x - 10
+                        and player_cell.y <= virus.y + 10 and player_cell.y >= virus.y - 10):
+                    virus.kill()
+                    # bodyCount == len(viruses) - 1
+                    
+        
         if (len(viruses) == 0):
             map.clearCurrentRoom()
-
 
         # for virus in viruses2:
         #     virus.changeVelocityTowardsPlayer((player_cell.x, player_cell.y))
@@ -141,15 +179,6 @@ while time_loop:
         #         if (virus.y > SCREEN_HEIGHT or virus.y < 0):
         #             virus.yspeed = -virus.yspeed
 
-
-            if (pygame.sprite.collide_rect(virus, player_cell)):
-                if (virus.attacking):
-                    running = False
-                elif (player_cell.x <= virus.x + 10 and player_cell.x >= virus.x - 10
-                        and player_cell.y <= virus.y + 10 and player_cell.y >= virus.y - 10):
-                    virus.kill()
-
-        
         # Resize coordinates for everything 
         for sprite in sprites:
             sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
@@ -165,9 +194,6 @@ while time_loop:
             door.rect.center = scaleCoordinates((door.x, door.y), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Probably a better way to do this
 
 
-
-
-
         # Draw Everything
 
         screen.blit(backgroundImg, (0, 0)) # Draw background
@@ -178,6 +204,8 @@ while time_loop:
         pygame.display.flip()
 
         clock.tick(60)  # limits FPS to 60
+        
+    # print("Your kill count for this round was: " + str(bodyCount))
     
 
 
