@@ -19,14 +19,14 @@ running = True
 
 # Calculate scale based on screen size. Should take in a touple of (width, height)
 def scaleToScreenSize(size, eventSize):
-    width_ratio = eventSize[0] / 1920
-    height_ratio = eventSize[1] / 1080
+    width_ratio = eventSize[0] / SCREEN_WIDTH
+    height_ratio = eventSize[1] / SCREEN_HEIGHT
     return (int(size[0] * width_ratio), int(size[1] * height_ratio))
     
 # Scale coordinates based on screen size. Base size is 1920x1080. Should take in a touple of (x, y)
 def scaleCoordinates(coords, eventSize):
-    width_ratio = eventSize[0] / 1920
-    height_ratio = eventSize[1] / 1080
+    width_ratio = eventSize[0] / SCREEN_WIDTH
+    height_ratio = eventSize[1] / SCREEN_HEIGHT
     return (int(coords[0] * width_ratio), int(coords[1] * height_ratio))
 
 pygame.display.set_caption('Biology Platformer')
@@ -48,10 +48,10 @@ while (intro):
         intro = False
     
     screen.fill((0, 0, 0))
-    text = font.render("going viral", True, "#FFFFFF")
+    text = font.render("Going Viral", True, "#FFFFFF")
     screen.blit(text, (100, 100))
 
-    text = font.render("we're under attack! you are a white blood cell, ", True, "#FFFFFF")
+    text = font.render("We're under attack! You are a white blood cell, ", True, "#FFFFFF")
     screen.blit(text, (100, 180))
 
     text = font.render("and your job is to protect us from viruses.", True, "#FFFFFF")
@@ -92,7 +92,8 @@ while time_loop:
     eligibleToMoveRooms = True # default value for flag having to do with map crossing
     running = True
     
-    # bodyCount = 0
+    bodyCount = 0
+    NUM_I_FRAMES = 25
 
     while running:
         
@@ -149,7 +150,6 @@ while time_loop:
                 pygame.display.flip()
                 pygame.time.delay(500)
                 map.changeRoom(player_cell, direction)
-                # TODO: add a screen change here to indicate to the player they changed positions
                 
                 # Move player to correct place
                 if direction == "north":
@@ -176,9 +176,7 @@ while time_loop:
                     running = False
                 elif (player_cell.x <= virus.x + 10 and player_cell.x >= virus.x - 10
                         and player_cell.y <= virus.y + 10 and player_cell.y >= virus.y - 10):
-                    virus.kill()
-                    # bodyCount == len(viruses) - 1
-                    
+                        virus.kill()
         
         if (len(viruses) == 0):
             map.clearCurrentRoom()
@@ -217,7 +215,7 @@ while time_loop:
 
         clock.tick(60)  # limits FPS to 60
         
-    # print("Your kill count for this round was: " + str(bodyCount))
+    print("Your kill count for this round was: " + str(bodyCount))
     
 
 

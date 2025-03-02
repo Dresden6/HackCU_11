@@ -6,7 +6,7 @@ from virus2 import Virus2
 
 class Tile():
     def __init__(self):
-        self.doors = [True, True, True, True] # True means it's bloked
+        self.doors = [True, True, True, True] # True means it's blocked
         self.enemies = []
         self.obstacles = []
         self.name = "default"
