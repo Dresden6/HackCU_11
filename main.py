@@ -28,6 +28,31 @@ def getTime(timeFromPreviousGames):
     
     return str(int(minutes)) + " minutes and " + str(int(seconds)) + " seconds."
 
+# returns a formatted time string
+def getTimeSmall(timeFromPreviousGames):
+    timeInMilliseconds = pygame.time.get_ticks()
+    timeInMilliseconds = timeInMilliseconds - timeFromPreviousGames
+    totalSeconds = timeInMilliseconds / 1000
+    seconds = totalSeconds % 60
+    minutes = totalSeconds // 60
+    
+    if seconds < 10:
+        return str(int(minutes)) + ":0" + str(int(seconds))
+    else:
+        return str(int(minutes)) + ":" + str(int(seconds))
+    
+    # if minutes > 1:
+    #     if seconds < 10:
+    #         return str(int(minutes)) + ":0" + str(int(seconds))
+    #     else:
+    #         return str(int(minutes)) + ":" + str(int(seconds))
+    # else:
+    #     if seconds < 10:
+    #         return "0" + str(int(seconds))
+    #     else:
+    #         return str(int(seconds))
+    
+    
 # Calculate scale based on screen size. Should take in a touple of (width, height)
 def scaleToScreenSize(size, eventSize):
     width_ratio = eventSize[0] / SCREEN_WIDTH
@@ -42,6 +67,8 @@ def scaleCoordinates(coords, eventSize):
 
 pygame.display.set_caption('Going Viral')
 pygame.display.set_icon(pygame.image.load("./assets/virus/virus_idle.png"))
+
+timerImage = pygame.image.load("./assets/environment/timer.png").convert_alpha()
 
 font = pygame.font.Font(None, 36)
 
@@ -305,6 +332,14 @@ while time_loop:
         map.doors.draw(screen) # Draw doors
         if(not eligibleToMoveRooms): map.locks.draw(screen) # Draw locks
         sprites.draw(screen) # Draw sprites    
+        
+        # Draw HUD
+        text = font.render(getTimeSmall(timeFromPreviousGames), True, "#FFFFFF")
+        screen.blit(text, (CURR_SCREEN_WIDTH - 80, CURR_SCREEN_HEIGHT - 30))
+        
+        timerImage = pygame.transform.scale(timerImage, scaleToScreenSize((64 * 1.5,64 * 1.5), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
+        screen.blit(timerImage, (CURR_SCREEN_WIDTH - 120, CURR_SCREEN_HEIGHT - 45))
+        
 
         # flip() the display to put your work on screen
         pygame.display.flip()

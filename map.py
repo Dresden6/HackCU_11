@@ -11,7 +11,6 @@ class Tile():
         self.enemies = []
         self.obstacles = []
         self.name = "default"
-        self.cleared = False
     
 
 class Map():
@@ -104,8 +103,6 @@ class Map():
     def getOverworldY(self):
         return self.overworldY
     
-    def clearCurrentRoom(self):
-        self.room_grid[self.overworldX, self.overworldY].cleared = True
     
     def movingOffMap(self, direction):
         if ((direction == "north" and (self.overworldY <= 0))
@@ -151,6 +148,7 @@ class Map():
         # true = door spawned in; false = door not spawned in
         # a door blocks movement to another room in a different direction
         
+        
         self.doors = pygame.sprite.RenderPlain([
             Door(64, 16, self.SCREEN_WIDTH/2, 0, False, selectedTile.doors[0]),
             Door(64, 16, self.SCREEN_WIDTH, self.SCREEN_HEIGHT/2, True, selectedTile.doors[1]),
@@ -158,6 +156,8 @@ class Map():
             Door(64, 16, 0, self.SCREEN_HEIGHT/2, True, selectedTile.doors[3])
         ])
         
+        
+        self.locks = pygame.sprite.RenderPlain()
         
         if(not selectedTile.doors[0]):
             Lock(64, 64, self.SCREEN_WIDTH/2, 40).add(self.locks)
