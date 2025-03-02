@@ -29,7 +29,7 @@ def scaleCoordinates(coords, eventSize):
     height_ratio = eventSize[1] / SCREEN_HEIGHT
     return (int(coords[0] * width_ratio), int(coords[1] * height_ratio))
 
-pygame.display.set_caption('Biology Platformer')
+pygame.display.set_caption('Going Viral')
 pygame.display.set_icon(pygame.image.load("./assets/virus/virus_idle.png"))
 
 font = pygame.font.Font(None, 36)
