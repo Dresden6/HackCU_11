@@ -87,7 +87,7 @@ while (intro):
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_a] or keys[pygame.K_d] or keys[pygame.K_w] or keys[pygame.K_s] \
-        or keys[pygame.K_UP] or keys[pygame.K_DOWN] or keys[pygame.K_LEFT] or keys[pygame.K_]:
+        or keys[pygame.K_UP] or keys[pygame.K_DOWN] or keys[pygame.K_LEFT] or keys[pygame.K_RIGHT]:
         intro = False
     
     screen.fill((0, 0, 0))
