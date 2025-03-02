@@ -7,6 +7,7 @@ class Tile():
         self.enemies = []
         self.obstacles = []
         self.name = "default"
+        self.cleared = False
     
 
 class Map():
