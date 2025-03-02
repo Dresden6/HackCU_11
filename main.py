@@ -104,6 +104,12 @@ while time_loop:
         if keys[pygame.K_s]:
             player_cell.moveDown()
             
+        # Lock/Unlock chamber
+
+        if viruses.__len__ == 0:
+            
+            pass
+            
         # check if player has moved rooms
         if (player_cell.hasMovedRooms(SCREEN_WIDTH, SCREEN_HEIGHT)):
             direction = player_cell.findRoomMovementDirection()
