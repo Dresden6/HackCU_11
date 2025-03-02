@@ -94,11 +94,9 @@ while time_loop:
 
     player_cell = TCell(140, 140, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
-    viruses = map.spawnEnemies()
-    viruses2 = [Virus2(128, 128, SCREEN_WIDTH/6, SCREEN_HEIGHT/6 + 40)]
+    viruses = map.spawnEnemies()    
     
-    
-    sprites = pygame.sprite.RenderPlain([player_cell] + viruses + viruses2)
+    sprites = pygame.sprite.RenderPlain([player_cell] + viruses)
 
 
     # Scale everything correctly:
@@ -165,7 +163,7 @@ while time_loop:
             
         # check if player has moved rooms
         
-        if (len(viruses) + len(viruses2) == 0):
+        if (len(viruses) == 0):
             eligibleToMoveRooms = True
         
         if (player_cell.hasMovedRooms(SCREEN_WIDTH, SCREEN_HEIGHT) and eligibleToMoveRooms):
@@ -177,10 +175,9 @@ while time_loop:
                 pygame.time.delay(250)
                 #respwanws viruses when changing rooms
                 viruses = map.spawnEnemies()
-                viruses2 = [Virus2(128, 128, SCREEN_WIDTH/6, SCREEN_HEIGHT/6 + 40)]
                 
                 
-                sprites = pygame.sprite.RenderPlain([player_cell] + viruses + viruses2)
+                sprites = pygame.sprite.RenderPlain([player_cell] + viruses)
 
 
                 # Scale everything correctly:
@@ -219,30 +216,14 @@ while time_loop:
                     else:
                         virus.kill()
                     # bodyCount == len(viruses) - 1
+            if (isinstance(virus, Virus2)):
+                virus.changeVelocityTowardsPlayer((player_cell.x, player_cell.y))
 
-         
-        for virus2 in viruses2:
-            if (virus2.x > SCREEN_WIDTH or virus2.x < 0):
-                virus2.xspeed = -virus2.xspeed
-            if (virus2.y > SCREEN_HEIGHT or virus2.y < 0):
-                virus2.yspeed = -virus2.yspeed
-            
-            if (pygame.sprite.collide_rect(virus2, player_cell)):
-                if (player_cell.x <= virus2.x + 60 and player_cell.x >= virus2.x - 60
-                        and player_cell.y <= virus2.y + 60 and player_cell.y >= virus2.y - 60):
-                    if (virus2.attacking):
-                        running = False
-                    else:
-                        virus2.kill()
-                        # bodyCount == len(viruses2) - 1
-                    
         
         if (len(viruses) == 0):
             map.clearCurrentRoom()
 
-        for virus in viruses:
-            virus.changeVelocityTowardsPlayer((player_cell.x, player_cell.y))
-
+        
         # Resize coordinates for everything 
         for sprite in sprites:
             sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
@@ -263,7 +244,7 @@ while time_loop:
 
         screen.blit(backgroundImg, (0, 0)) # Draw background
         map.doors.draw(screen) # Draw doors
-        if(not eligibleToMoveRooms): map.locks.draw() # Draw locks
+        if(not eligibleToMoveRooms): map.locks.draw(screen) # Draw locks
         sprites.draw(screen) # Draw sprites    
 
         # flip() the display to put your work on screen
