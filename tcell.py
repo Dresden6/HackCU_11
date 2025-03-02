@@ -7,6 +7,8 @@ class TCell(pygame.sprite.Sprite):
         self.width = width
         self.height = height
 
+        self.radius = width / 4
+
         self.image = pygame.image.load("./assets/tcell/tcell.png").convert_alpha()
 
         # x and y are the position in a 1920x1080 screen
