@@ -157,7 +157,7 @@ while time_loop:
             elif direction == "right":
                 player_cell.x = 0
             
-        if (player_cell.backToMiddle(SCREEN_WIDTH, SCREEN_HEIGHT)):
+        # if (player_cell.backToMiddle(SCREEN_WIDTH, SCREEN_HEIGHT)):
             eligibleToMoveRooms = True
 
 
