@@ -94,8 +94,8 @@ while running:
         
     # check if player has moved rooms
     if (player_cell.hasMovedRooms(SCREEN_WIDTH, SCREEN_HEIGHT)):
-        direction = player_cell.findRoomMovementDirection()
-        map.changeRoom(direction)
+        direction = player_cell.findRoomMovementDirection(SCREEN_WIDTH, SCREEN_HEIGHT)
+        map.changeRoom(player_cell, direction)
 
 
     # Virus Movement
