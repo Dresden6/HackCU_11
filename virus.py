@@ -17,8 +17,11 @@ class Virus(pygame.sprite.Sprite):
         
         self.x = x
         self.y = y
+        
+        self.attack_img = pygame.image.load("./assets/virus/virus_attack.png").convert_alpha()
+        self.idle_img = pygame.image.load("./assets/virus/virus_idle.png").convert_alpha()
 
-        self.image = pygame.image.load("./assets/virus/virus_idle.png").convert_alpha()
+        self.image = self.idle_img
         self.image = pygame.transform.scale(self.image, (self.image.get_width() * 2, self.image.get_height() * 2))
         
         self.rect = self.image.get_rect()
@@ -50,11 +53,11 @@ class Virus(pygame.sprite.Sprite):
     
     
     def attack(self):
-        self.image = pygame.image.load("./assets/virus/virus_attack.png").convert_alpha()
+        self.image = self.attack_img
         self.attacking = True
     
     def idle(self):
-        self.image = pygame.image.load("./assets/virus/virus_idle.png").convert_alpha()
+        self.image = self.idle_img
         self.attacking = False
     
     def getLocation(self):

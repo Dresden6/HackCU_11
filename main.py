@@ -34,6 +34,7 @@ def scaleCoordinates(coords, eventSize):
 
 pygame.display.set_caption('Biology Platformer')
 
+py
 
 # Create main background image
 backgroundImg = pygame.image.load("./assets/environment/background.png").convert()
@@ -137,7 +138,7 @@ while time_loop:
         #             virus.yspeed = -virus.yspeed
 
 
-            if (pygame.sprite.collide_circle(virus, player_cell)):
+            if (pygame.sprite.collide_rect(virus, player_cell)):
                 if (virus.attacking):
                     running = False
                 elif (player_cell.x <= virus.x + 10 and player_cell.x >= virus.x - 10
