@@ -8,7 +8,7 @@ class Virus2(Virus):
 
         super().__init__(width, height, x, y)
         
-        self.image = pygame.image.load("./assets/virus/virus_idle.png").convert_alpha()
+        self.image = pygame.image.load("./assets/virus/virus_2_idle.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (self.image.get_width() * 2, self.image.get_height() * 2))
         
         
@@ -19,6 +19,16 @@ class Virus2(Virus):
         self.rect.x += self.xspeed
         self.rect.y += self.yspeed
 
+        
+    def attack(self):
+        self.image = pygame.image.load("./assets/virus/virus_2_attack.png").convert_alpha()
+        self.attacking = True
+    
+    def idle(self):
+        self.image = pygame.image.load("./assets/virus/virus_2_idle.png").convert_alpha()
+        self.attacking = False
+        
+        
         
     def changeVelocityTowardsPlayer(self, playerCoords):
         

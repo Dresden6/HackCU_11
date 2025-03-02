@@ -28,54 +28,54 @@ class Map():
                         new_tile.name = "start"
                         new_tile.doors[1] = False
                         new_tile.doors[3] = False
-                        room_grid[row][column] = new_tile
+                        self.room_grid[row][column] = new_tile
                     elif column == columns - 1:
                         new_tile = Tile()
                         new_tile.name = "top_right_corner"
                         new_tile.doors[2] = False
                         new_tile.doors[3] = False
-                        room_grid[row][column] = new_tile
+                        self.room_grid[row][column] = new_tile
                     else:
                         new_tile = Tile()
                         new_tile.name = "top_edge"
                         new_tile.doors[1] = False
                         new_tile.doors[2] = False
                         new_tile.doors[3] = False
-                        room_grid[row][column] = new_tile
+                        self.room_grid[row][column] = new_tile
                 elif row == rows - 1:
                     if column == columns - 1:
                         new_tile = Tile()
                         new_tile.name = "finish"
                         new_tile.doors[0] = False
                         new_tile.doors[3] = False
-                        room_grid[row][column] = new_tile
+                        self.room_grid[row][column] = new_tile
                     elif column == 0:
                         new_tile = Tile()
                         new_tile.name = "bottom_left_corner"
                         new_tile.doors[0] = False
                         new_tile.doors[1] = False
-                        room_grid[row][column] = new_tile
+                        self.room_grid[row][column] = new_tile
                     else:
                         new_tile = Tile()
                         new_tile.name = "bottom_edge"
                         new_tile.doors[0] = False
                         new_tile.doors[1] = False
                         new_tile.doors[3] = False
-                        room_grid[row][column] = new_tile
+                        self.room_grid[row][column] = new_tile
                 elif column == 0:
                     new_tile = Tile()
                     new_tile.name = "left_edge"
                     new_tile.doors[0] = False
                     new_tile.doors[1] = False
                     new_tile.doors[2] = False
-                    room_grid[row][column] = new_tile
+                    self.room_grid[row][column] = new_tile
                 elif column == columns - 1:
                     new_tile = Tile()
                     new_tile.name = "right_edge"
                     new_tile.doors[0] = False
                     new_tile.doors[2] = False
                     new_tile.doors[3] = False
-                    room_grid[row][column] = new_tile
+                    self.room_grid[row][column] = new_tile
                 else:
                     new_tile = Tile()
                     room_types = [1,2,3,4,5]
@@ -84,7 +84,7 @@ class Map():
                     new_tile.doors[1] = False
                     new_tile.doors[2] = False
                     new_tile.doors[3] = False
-                    room_grid[row][column] = new_tile
+                    self.room_grid[row][column] = new_tile
         
         # set player overworld position to position of start tile
         self.overworldX = 0

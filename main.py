@@ -38,13 +38,8 @@ pygame.display.set_caption('Biology Platformer')
 # Create main background image
 backgroundImg = pygame.image.load("./assets/environment/background.png").convert()
 
-info = pygame.display.Info()
-player_cell = TCell(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-viruses = [Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40)]
-viruses2 = [Virus2(128, 128, SCREEN_WIDTH/6, SCREEN_HEIGHT/6 + 40)]
-map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
-sprites = pygame.sprite.RenderPlain([player_cell] + viruses + viruses2)
 time_loop = True
+
 while time_loop:
 
     for event in pygame.event.get():
@@ -52,9 +47,13 @@ while time_loop:
             time_loop = False
 
     player_cell = TCell(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-    viruses = [Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40)]
+    viruses = [Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40), 
+               Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40),
+               Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40)]
+    viruses2 = [Virus2(128, 128, SCREEN_WIDTH/6, SCREEN_HEIGHT/6 + 40)]
+    
     map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
-    sprites = pygame.sprite.RenderPlain([player_cell] + viruses)
+    sprites = pygame.sprite.RenderPlain([player_cell] + viruses + viruses2)
 
 
     # Scale everything correctly:
@@ -109,31 +108,13 @@ while time_loop:
         if keys[pygame.K_s]:
             player_cell.moveDown()
             
-        # Lock/Unlock chamber
-
-        if viruses.__len__ == 0:
-            
-            pass
-            
         # check if player has moved rooms
         if (player_cell.hasMovedRooms(SCREEN_WIDTH, SCREEN_HEIGHT)):
             direction = player_cell.findRoomMovementDirection(SCREEN_WIDTH, SCREEN_HEIGHT)
-            map.changeRoom(player_cell, direction)
+            map.changeRoom(direction)
 
-        for virus in viruses:
-            virus_x = virus.getLocation()[0]
-            if (virus_x > SCREEN_WIDTH):
-                virus.speed = -virus.speed
 
-    for virus in viruses:
-        if (virus.x > SCREEN_WIDTH or virus.x < 0):
-            virus.xspeed = -virus.xspeed
-        if (virus.y > SCREEN_HEIGHT or virus.y < 0):
-            virus.yspeed = -virus.yspeed
-            
-            
-    for virus in viruses2:
-        virus.changeVelocityTowardsPlayer((player_cell.x, player_cell.y))
+
         for virus in viruses:
             if (virus.x > SCREEN_WIDTH or virus.x < 0):
                 virus.xspeed = -virus.xspeed
@@ -141,27 +122,22 @@ while time_loop:
                 virus.yspeed = -virus.yspeed
 
 
-        if (pygame.sprite.collide_circle(virus, player_cell)):
-            if (virus.attacking):
-                running = False
+        # for virus in viruses2:
+        #     virus.changeVelocityTowardsPlayer((player_cell.x, player_cell.y))
+        #     for virus in viruses:
+        #         if (virus.x > SCREEN_WIDTH or virus.x < 0):
+        #             virus.xspeed = -virus.xspeed
+        #         if (virus.y > SCREEN_HEIGHT or virus.y < 0):
+        #             virus.yspeed = -virus.yspeed
 
 
-    # Lock/Unlock chamber
-
-    if viruses.__len__ == 0:
-        
-        pass
-
-    
-    # Resize coordinates for everything 
-    for sprite in sprites:
-        sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
-        sprite.rect.width, sprite.rect.height = scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
-        sprite.rect.center = scaleCoordinates((sprite.x, sprite.y), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Probably a better way to do this
             if (pygame.sprite.collide_circle(virus, player_cell)):
-                print('colliding')
                 if (virus.attacking):
                     running = False
+                elif (player_cell.x <= virus.x + 10 and player_cell.x >= virus.x - 10
+                        and player_cell.y <= virus.y + 10 and player_cell.y >= virus.y - 10):
+                    virus.kill()
+
         
         # Resize coordinates for everything 
         for sprite in sprites:
