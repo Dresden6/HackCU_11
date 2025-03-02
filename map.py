@@ -29,7 +29,7 @@ class Map():
                         new_tile = Tile()
                         new_tile.name = "start"
                         new_tile.doors[1] = False
-                        new_tile.doors[3] = False
+                        new_tile.doors[2] = False
                         self.room_grid[row][column] = new_tile
                     elif column == self.MAP_COLUMNS - 1:
                         new_tile = Tile()

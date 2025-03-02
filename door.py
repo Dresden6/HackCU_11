@@ -28,8 +28,7 @@ class Door(pygame.sprite.Sprite):
     
     def update(self, locked, rotation):
         self.locked = locked
-        
-        print(rotation)
+        self.rotation = rotation
         
         if locked: 
             if rotation:
