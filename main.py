@@ -236,6 +236,14 @@ while time_loop:
             player_cell.moveUp()
         if keys[pygame.K_s]:
             player_cell.moveDown()
+        if keys[pygame.K_LEFT]:
+            player_cell.moveLeft()
+        if keys[pygame.K_RIGHT]:
+            player_cell.moveRight()
+        if keys[pygame.K_UP]:
+            player_cell.moveUp()
+        if keys[pygame.K_DOWN]:
+            player_cell.moveDown()
             
             
             
