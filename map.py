@@ -102,10 +102,10 @@ class Map():
         # also change the position of the player based on what direction they're coming in from
         #TODO: block the player from moving outside the bounds of the overworld
         if (direction == "north"):
-            self.overworldY += 1
+            self.overworldY -= 1
             player_cell.setY(0) # move player's y position to top
         elif (direction == "south"):
-            self.overworldY -= 1
+            self.overworldY += 1
             player_cell.setY(self.SCREEN_HEIGHT) # move player's y position to bottom
         elif (direction == "east"):
             self.overworldX += 1
@@ -115,6 +115,8 @@ class Map():
             player_cell.setX(0) # move player's x position to left
         
         # spawn in new room's background, obstacles, and enemies
+        print("overworld x: " + (str)(self.overworldX))
+        print("overworld y: " + (str)(self.overworldY))
         selectedTile = self.room_grid[self.overworldX][self.overworldY]
         
         self.despawnOldEntities(selectedTile)

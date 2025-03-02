@@ -62,6 +62,7 @@ while time_loop:
                     sprite.rect.width, sprite.rect.height = scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
     backgroundImg = pygame.transform.scale(backgroundImg, (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
 
+    eligibleToMoveRooms = True # default value for flag having to do with map crossing
     running = True
 
     while running:
@@ -109,10 +110,14 @@ while time_loop:
             player_cell.moveDown()
             
         # check if player has moved rooms
-        if (player_cell.hasMovedRooms(SCREEN_WIDTH, SCREEN_HEIGHT)):
+        
+        if (player_cell.hasMovedRooms(SCREEN_WIDTH, SCREEN_HEIGHT) and eligibleToMoveRooms):
+            eligibleToMoveRooms = False
             direction = player_cell.findRoomMovementDirection(SCREEN_WIDTH, SCREEN_HEIGHT)
-            map.changeRoom(direction)
-
+            map.changeRoom(player_cell, direction)
+            
+        if (player_cell.backToMiddle(SCREEN_WIDTH, SCREEN_HEIGHT)):
+            eligibleToMoveRooms = True
 
 
         for virus in viruses:
