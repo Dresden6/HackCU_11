@@ -138,6 +138,8 @@ while time_loop:
             screen.fill((0, 0, 0))
         
             message = font.render("You survived for " + (getTime(timeFromPreviousGames + (45*40+1500))), True, "#FFFFFF")
+            text = font.render("Keep fighting!!", True, "#FFFFFF")
+
         else:
             
             youLived = pygame.transform.scale(youLived, (CURR_SCREEN_WIDTH, 500))
@@ -151,10 +153,9 @@ while time_loop:
             pygame.time.delay(1500)
             
             screen.fill((0, 0, 0))
-            message = font.render("Congrats! You cleared the game in " + (getTime(timeFromPreviousGames + (45*40+1500))), True, "#FFFFFF")
+            text = font.render("Congratulations!", True, "#FFFFFF")
+            message = font.render("You cleared the game in " + (getTime(timeFromPreviousGames + (45*40+1500))), True, "#FFFFFF")
             
-        text = font.render("Keep fighting!!", True, "#FFFFFF")
-        
         screen.blit(message, ((CURR_SCREEN_WIDTH/4) - text.get_width()/4, 1*(CURR_SCREEN_HEIGHT/3) - (text.get_height()/3)))
         screen.blit(text, (CURR_SCREEN_WIDTH/2 - text.get_width()/2, 2*(CURR_SCREEN_HEIGHT/3) - (text.get_height()/3)))
 
