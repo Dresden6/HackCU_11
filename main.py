@@ -215,7 +215,7 @@ while time_loop:
         if (len(viruses) == 0):
             map.clearCurrentRoom()
 
-        for virus in viruses2:
+        for virus in viruses:
             virus.changeVelocityTowardsPlayer((player_cell.x, player_cell.y))
 
         # Resize coordinates for everything 
