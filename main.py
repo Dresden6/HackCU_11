@@ -213,7 +213,7 @@ while time_loop:
                         running = False
                     else:
                         virus.kill()
-                        virus.remove(sprites)
+                        sprites.remove(virus)
                     # bodyCount == len(viruses) - 1
             if (isinstance(virus, Virus2)):
                 virus.changeVelocityTowardsPlayer((player_cell.x, player_cell.y))

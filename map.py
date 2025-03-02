@@ -203,21 +203,30 @@ class Map():
     def spawnObstacles(self, selectedTile):
         # TODO: look at room type at self.overworldX and self.overworldY, then render the proper obstacles as specified in self.room_types, making sure they don't overlap with the background sprite
         pass
+
+    def getRandomCoords(self):
+        CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT = 854, 480
+        x = random.choice(list(range(CURR_SCREEN_WIDTH//8, 3*CURR_SCREEN_WIDTH//8)) + list(range(5*CURR_SCREEN_WIDTH//8, 7*CURR_SCREEN_WIDTH//8)))
+        y = random.choice(list(range(CURR_SCREEN_HEIGHT//8, 3*CURR_SCREEN_HEIGHT//8)) + list(range(5*CURR_SCREEN_HEIGHT//8, 7*CURR_SCREEN_HEIGHT//8)))
+        return (x, y)
         
     def spawnEnemies(self):
-        CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT = 854, 480
+        
         difficulty = random.randint(3,7)
         result = []
         for i in range(difficulty):
-            x = random.choice(list(range(CURR_SCREEN_WIDTH//8, 3*CURR_SCREEN_WIDTH//8)) + list(range(5*CURR_SCREEN_WIDTH//8, 7*CURR_SCREEN_WIDTH//8)))
-            y = random.choice(list(range(CURR_SCREEN_HEIGHT//8, 3*CURR_SCREEN_HEIGHT//8)) + list(range(5*CURR_SCREEN_HEIGHT//8, 7*CURR_SCREEN_HEIGHT//8)))
-            result.append(Virus(128, 128,  CURR_SCREEN_WIDTH/2 + x, CURR_SCREEN_HEIGHT/2 + y))
-            result.append(Virus2(128, 128, CURR_SCREEN_WIDTH/2 - x, CURR_SCREEN_HEIGHT/2 - y))
+            x, y = self.getRandomCoords()
+            result.append(Virus(128, 128, x, y))
         
+        x, y = self.getRandomCoords()
+        result.append(Virus2(128, 128, x, y))
+        
+        if difficulty > 3:
+            x, y = self.getRandomCoords()
+            result.append(Virus2(128, 128, x, y))
         if difficulty > 5:
-            result.append(Virus2(128, 128, CURR_SCREEN_WIDTH/2 + x, CURR_SCREEN_HEIGHT/2 - y))
-        if difficulty > 6:
-            result.append(Virus2(128, 128, CURR_SCREEN_WIDTH/2 - x, CURR_SCREEN_HEIGHT/2 + y))
+            x, y = self.getRandomCoords()
+            result.append(Virus2(128, 128, x, y))
         
         return result
 
