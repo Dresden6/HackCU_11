@@ -1,6 +1,14 @@
 import pygame
 import random
 
+class Tile():
+    def __init__(self):
+        self.doors = [True, True, True, True] # True means it's bloked
+        self.enemies = []
+        self.obstacles = []
+        self.name = "default"
+    
+
 class Map():
     
     # doors = pygame.sprite.RenderPlain([player_cell] + viruses)
@@ -16,26 +24,67 @@ class Map():
             for column in range(columns):
                 if row == 0:
                     if column == 0:
-                        self.room_grid[row][column] = "start"
+                        new_tile = Tile()
+                        new_tile.name = "start"
+                        new_tile.doors[1] = False
+                        new_tile.doors[3] = False
+                        room_grid[row][column] = new_tile
                     elif column == columns - 1:
-                        self.room_grid[row][column] = "top_right_corner"
+                        new_tile = Tile()
+                        new_tile.name = "top_right_corner"
+                        new_tile.doors[2] = False
+                        new_tile.doors[3] = False
+                        room_grid[row][column] = new_tile
                     else:
-                        self.room_grid[row][column] = "top_edge"
+                        new_tile = Tile()
+                        new_tile.name = "top_edge"
+                        new_tile.doors[1] = False
+                        new_tile.doors[2] = False
+                        new_tile.doors[3] = False
+                        room_grid[row][column] = new_tile
                 elif row == rows - 1:
                     if column == columns - 1:
-                        self.room_grid[row][column] = "finish"
+                        new_tile = Tile()
+                        new_tile.name = "finish"
+                        new_tile.doors[0] = False
+                        new_tile.doors[3] = False
+                        room_grid[row][column] = new_tile
                     elif column == 0:
-                        self.room_grid[row][column] = "bottom_left_corner"
+                        new_tile = Tile()
+                        new_tile.name = "bottom_left_corner"
+                        new_tile.doors[0] = False
+                        new_tile.doors[1] = False
+                        room_grid[row][column] = new_tile
                     else:
-                        self.room_grid[row][column] = "bottom_edge"
+                        new_tile = Tile()
+                        new_tile.name = "bottom_edge"
+                        new_tile.doors[0] = False
+                        new_tile.doors[1] = False
+                        new_tile.doors[3] = False
+                        room_grid[row][column] = new_tile
                 elif column == 0:
-                    self.room_grid[row][column] = "left_edge"
+                    new_tile = Tile()
+                    new_tile.name = "left_edge"
+                    new_tile.doors[0] = False
+                    new_tile.doors[1] = False
+                    new_tile.doors[2] = False
+                    room_grid[row][column] = new_tile
                 elif column == columns - 1:
-                    self.room_grid[row][column] = "right_edge"
+                    new_tile = Tile()
+                    new_tile.name = "right_edge"
+                    new_tile.doors[0] = False
+                    new_tile.doors[2] = False
+                    new_tile.doors[3] = False
+                    room_grid[row][column] = new_tile
                 else:
-                    self.room_types = [1,2,3,4,5]
-                    room_type = random.choice(self.room_types)
-                    self.room_grid[row][column] = str(room_type)
+                    new_tile = Tile()
+                    room_types = [1,2,3,4,5]
+                    new_tile.name = str(random.choice(room_types))
+                    new_tile.doors[0] = False
+                    new_tile.doors[1] = False
+                    new_tile.doors[2] = False
+                    new_tile.doors[3] = False
+                    room_grid[row][column] = new_tile
         
         # set player overworld position to position of start tile
         self.overworldX = 0
