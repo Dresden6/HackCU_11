@@ -152,15 +152,11 @@ class Map():
         # a door blocks movement to another room in a different direction
         
         self.doors = pygame.sprite.RenderPlain([
-            Door(64, 16, 1920/2, 0, False, selectedTile.doors[0]),
-            Door(64, 16, 1920, 1080/2, True, selectedTile.doors[1]),
-            Door(64, 16, 1920/2, 1080, False, selectedTile.doors[2]),
-            Door(64, 16, 0, 1080/2, True, selectedTile.doors[3]),  
+            Door(64, 16, self.SCREEN_WIDTH/2, 0, False, selectedTile.doors[0]),
+            Door(64, 16, self.SCREEN_WIDTH, self.SCREEN_HEIGHT/2, True, selectedTile.doors[1]),
+            Door(64, 16, self.SCREEN_WIDTH/2, self.SCREEN_HEIGHT, False, selectedTile.doors[2]),
+            Door(64, 16, 0, self.SCREEN_HEIGHT/2, True, selectedTile.doors[3])
         ])
-        
-        
-        
-        
         
         # --------------------------------------------------------------------------------------------------------
         # To be immortalized forever in the hall of shame:
@@ -191,10 +187,6 @@ class Map():
         #      Of that colossal Wreck, boundless and bare
         #      The lone and level functions stretch far away.”
         # --------------------------------------------------------------------------------------------------------
-            
-        
-        
-        # TODO: look at room type at self.overworldX and self.overworldY, then render the proper room using door placements
         
     def spawnObstacles(self, selectedTile):
         # TODO: look at room type at self.overworldX and self.overworldY, then render the proper obstacles as specified in self.room_types, making sure they don't overlap with the background sprite

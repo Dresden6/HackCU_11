@@ -145,6 +145,9 @@ while time_loop:
             eligibleToMoveRooms = False
             direction = player_cell.findRoomMovementDirection(SCREEN_WIDTH, SCREEN_HEIGHT)
             if (not map.movingOffMap(direction)):
+                screen.fill((0,0,0))
+                pygame.display.flip()
+                pygame.time.delay(500)
                 map.changeRoom(player_cell, direction)
                 # TODO: add a screen change here to indicate to the player they changed positions
                 
