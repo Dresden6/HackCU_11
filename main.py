@@ -48,6 +48,8 @@ font = pygame.font.Font(None, 36)
 intro = True
 died = False
 
+numTries = 0
+
 time_loop = True
 
 while (intro):
@@ -62,16 +64,16 @@ while (intro):
     
     screen.fill((0, 0, 0))
     text = font.render("Going Viral", True, "#FFFFFF")
-    screen.blit(text, (100, 100))
+    screen.blit(text, (CURR_SCREEN_WIDTH/2 - text.get_width()/2 - 5, 100))
 
     text = font.render("We're under attack! You are a white blood cell, ", True, "#FFFFFF")
-    screen.blit(text, (100, 180))
+    screen.blit(text, (CURR_SCREEN_WIDTH/2 - text.get_width()/2 - 5, 180))
 
     text = font.render("and your job is to protect us from viruses.", True, "#FFFFFF")
-    screen.blit(text, (100, 220))
+    screen.blit(text, (CURR_SCREEN_WIDTH/2 - text.get_width()/2 - 5, 220))
 
-    text = font.render("(WASD to start)", True, "#FFFFFF")
-    screen.blit(text, (100, 260))
+    text = font.render("(WASD to start)", True, "#bd0000")
+    screen.blit(text, (CURR_SCREEN_WIDTH/2 - text.get_width()/2 - 5, 300))
     pygame.display.flip()
 
 
@@ -88,7 +90,23 @@ backgroundIdx = 0
 collected = {}
 
 while time_loop:
+    
+    if numTries > 0:
+        screen.fill((0, 0, 0))
+        text = font.render("You Died", True, "#bd0000")
+        screen.blit(text, (CURR_SCREEN_WIDTH/2 - text.get_width()/2 - 5, CURR_SCREEN_HEIGHT/2 - text.get_height()/2 - 5))
 
+        pygame.display.flip()
+        pygame.time.delay(2000)
+        
+        screen.fill((0, 0, 0))
+        text = font.render("Keep fighting!!", True, "#FFFFFF")
+        screen.blit(text, (CURR_SCREEN_WIDTH/2 - text.get_width()/2, CURR_SCREEN_HEIGHT/2 - text.get_height()/2))
+
+        pygame.display.flip()
+        pygame.time.delay(2000)
+    
+    numTries += 1
     backgroundIdx = 0
 
     for event in pygame.event.get():
