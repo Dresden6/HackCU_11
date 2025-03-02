@@ -69,6 +69,7 @@ pygame.display.set_caption('Going Viral')
 pygame.display.set_icon(pygame.image.load("./assets/virus/virus_idle.png"))
 
 timerImage = pygame.image.load("./assets/environment/timer.png").convert_alpha()
+youDied = pygame.image.load("./assets/environment/YOU_DIED.png").convert_alpha()
 
 font = pygame.font.Font(None, 36)
 
@@ -120,15 +121,22 @@ collected = {}
 while time_loop:
     
     if numTries > 0:
-        screen.fill((0, 0, 0))
         if(died):
-            text = font.render("You Died", True, "#bd0000")
-            screen.blit(text, (CURR_SCREEN_WIDTH/2 - text.get_width()/2 - 5, CURR_SCREEN_HEIGHT/2 - text.get_height()/2 - 5))
-
-            pygame.display.flip()
-            pygame.time.delay(2000)            
-
-            message = font.render("You survived for " + (getTime(timeFromPreviousGames + 2000)), True, "#FFFFFF")
+            # screen.fill((0, 0, 0))
+            # text = font.render("You Died", True, "#bd0000")
+            youDied = pygame.transform.scale(youDied, (CURR_SCREEN_WIDTH, 500))
+            
+            for i in range(45):
+                youDied.set_alpha(i)
+                screen.blit(youDied, (CURR_SCREEN_WIDTH/2 - youDied.get_width()/2, CURR_SCREEN_HEIGHT/2 - youDied.get_height()/2)) # change opacity to be very small
+                pygame.display.flip()
+                pygame.time.delay(40)
+            
+            pygame.time.delay(1500)
+            
+            screen.fill((0, 0, 0))
+        
+            message = font.render("You survived for " + (getTime(timeFromPreviousGames + (45*40+1500))), True, "#FFFFFF")
         else:
             message = font.render("Congrats! You cleared the game in " + (getTime(timeFromPreviousGames)), True, "#FFFFFF")
             
