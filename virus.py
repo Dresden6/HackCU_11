@@ -1,23 +1,23 @@
 import pygame
-from random import randint
+from random import choice
 
 class Virus(pygame.sprite.Sprite):
     # creates the virus
     def __init__(self, width, height, x, y):
         pygame.sprite.Sprite.__init__(self)
         
-        self.maxspeed = 3
+        self.speeds = [-4, -3, -2, -1, 1, 2, 3, 4]
         
         self.width = width
         self.height = height
         
-        self.radius = width / 4
+        # self.radius = width / 4
 
         self.attacking = False
         
         self.x = x
         self.y = y
-        
+
         self.attack_img = pygame.image.load("./assets/virus/virus_attack.png").convert_alpha()
         self.idle_img = pygame.image.load("./assets/virus/virus_idle.png").convert_alpha()
 
@@ -25,8 +25,8 @@ class Virus(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (self.image.get_width() * 2, self.image.get_height() * 2))
         
         self.rect = self.image.get_rect()
-        self.xspeed = randint(-self.maxspeed, self.maxspeed) 
-        self.yspeed = randint(-self.maxspeed, self.maxspeed)
+        self.xspeed = choice(self.speeds) 
+        self.yspeed = choice(self.speeds)
         self.hit_countdown = 0
     
     # trying to make the virus flash when it is hit

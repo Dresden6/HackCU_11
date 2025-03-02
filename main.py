@@ -69,7 +69,7 @@ while (intro):
     text = font.render("and your job is to protect us from viruses.", True, "#FFFFFF")
     screen.blit(text, (100, 220))
 
-    text = font.render("(WASD to start)", True, "#FFFFFF")
+    text = font.render("Defeat the infection! (WASD to start)", True, "#FFFFFF")
     screen.blit(text, (100, 260))
     pygame.display.flip()
 
