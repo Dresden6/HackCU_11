@@ -11,7 +11,6 @@ class Tile():
         self.enemies = []
         self.obstacles = []
         self.name = "default"
-        self.cleared = False
     
 
 class Map():
@@ -104,8 +103,6 @@ class Map():
     def getOverworldY(self):
         return self.overworldY
     
-    def clearCurrentRoom(self):
-        self.room_grid[self.overworldX, self.overworldY].cleared = True
     
     def movingOffMap(self, direction):
         if ((direction == "north" and (self.overworldY <= 0))
