@@ -75,7 +75,7 @@ while time_loop:
         if event.type == pygame.QUIT:
             time_loop = False
 
-    player_cell = TCell(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    player_cell = TCell(140, 140, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
     viruses = map.spawnEnemies()
     viruses2 = [Virus2(128, 128, SCREEN_WIDTH/6, SCREEN_HEIGHT/6 + 40)]
@@ -163,7 +163,9 @@ while time_loop:
                                 sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
                                 sprite.rect.width, sprite.rect.height = scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
                 backgroundImg = pygame.transform.scale(backgroundImg, (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
-                                
+                
+                map.changeRoom(player_cell, direction)
+                
                 # Move player to correct place
                 if direction == "north":
                     player_cell.y = SCREEN_HEIGHT - 64
