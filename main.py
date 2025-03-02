@@ -14,7 +14,7 @@ SCREEN_WIDTH, SCREEN_HEIGHT = 1920, 1080 # Everything should be done in referenc
 
 CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT = 854, 480 # These dimensions are only for calculating resizing
 
-screen = pygame.display.set_mode((CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT), pygame.RESIZABLE)
+screen = pygame.display.set_mode((CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 running = True
 
