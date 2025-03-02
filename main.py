@@ -149,7 +149,7 @@ while time_loop:
                 screen.fill((0,0,0))
                 pygame.display.flip()
                 pygame.time.delay(250)
-                map.changeRoom(player_cell, direction)
+                viruses = map.changeRoom(player_cell, direction)
                 
                 # Move player to correct place
                 if direction == "north":
