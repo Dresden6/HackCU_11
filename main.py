@@ -157,6 +157,13 @@ while time_loop:
             sprite.rect.center = scaleCoordinates((sprite.x, sprite.y), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Probably a better way to do this
 
         sprites.update()
+        
+        # Resize coordinates for everything 
+        for door in map.doors:
+            door.image = pygame.transform.scale(door.image, scaleToScreenSize((door.width, door.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
+            door.rect.width, door.rect.height = scaleToScreenSize((door.width, door.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
+            door.rect.center = scaleCoordinates((door.x, door.y), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Probably a better way to do this
+
 
 
 
@@ -164,6 +171,7 @@ while time_loop:
         # Draw Everything
 
         screen.blit(backgroundImg, (0, 0)) # Draw background
+        map.doors.draw(screen) # Draw doors
         sprites.draw(screen) # Draw sprites    
 
         # flip() the display to put your work on screen
