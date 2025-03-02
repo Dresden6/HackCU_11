@@ -161,13 +161,13 @@ class Map():
         
         
         if(not selectedTile.doors[0]):
-            Lock(64, 64, self.SCREEN_WIDTH/2, 30).add(self.locks)
+            Lock(64, 64, self.SCREEN_WIDTH/2, 40).add(self.locks)
         if(not selectedTile.doors[1]):
             Lock(64, 64, self.SCREEN_WIDTH - 30, self.SCREEN_HEIGHT/2).add(self.locks)
         if(not selectedTile.doors[2]):
-            Lock(64, 64, self.SCREEN_WIDTH/2, self.SCREEN_HEIGHT - 30).add(self.locks)
+            Lock(64, 64, self.SCREEN_WIDTH/2, self.SCREEN_HEIGHT - 40).add(self.locks)
         if(not selectedTile.doors[3]):
-            Lock(64, 64, 30, self.SCREEN_HEIGHT).add(self.locks)
+            Lock(64, 64, 30, self.SCREEN_HEIGHT/2).add(self.locks)
             
         
         # --------------------------------------------------------------------------------------------------------
