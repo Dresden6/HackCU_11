@@ -147,8 +147,17 @@ while time_loop:
             if (not map.movingOffMap(direction)):
                 map.changeRoom(player_cell, direction)
                 # TODO: add a screen change here to indicate to the player they changed positions
+                
+            if direction == "up":
+                player_cell.y = SCREEN_HEIGHT - player_cell.height
+            elif direction == "down":
+                player_cell.y = 0
+            elif direction == "left":
+                player_cell.x = SCREEN_WIDTH - player_cell.width
+            elif direction == "right":
+                player_cell.x = 0
             
-        if (player_cell.backToMiddle(SCREEN_WIDTH, SCREEN_HEIGHT)):
+        # if (player_cell.backToMiddle(SCREEN_WIDTH, SCREEN_HEIGHT)):
             eligibleToMoveRooms = True
 
 
