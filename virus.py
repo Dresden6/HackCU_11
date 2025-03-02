@@ -56,5 +56,5 @@ class Virus(pygame.sprite.Sprite):
         self.attacking = False
     
     def getLocation(self):
-        return (self.rect.x, self.rect.y)
+        return (self.x, self.y)
 

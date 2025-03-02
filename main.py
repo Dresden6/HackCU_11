@@ -45,7 +45,9 @@ while time_loop:
             time_loop = False
 
     player_cell = TCell(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-    viruses = [Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40)]
+    viruses = [Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40), 
+               Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40),
+               Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40)]
     map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
     sprites = pygame.sprite.RenderPlain([player_cell] + viruses)
 
@@ -108,22 +110,17 @@ while time_loop:
             map.changeRoom(direction)
 
         for virus in viruses:
-            virus_x = virus.getLocation()[0]
-            if (virus_x > SCREEN_WIDTH):
-                virus.speed = -virus.speed
-
-        for virus in viruses:
             if (virus.x > SCREEN_WIDTH or virus.x < 0):
                 virus.xspeed = -virus.xspeed
             if (virus.y > SCREEN_HEIGHT or virus.y < 0):
                 virus.yspeed = -virus.yspeed
 
-
             if (pygame.sprite.collide_circle(virus, player_cell)):
-                print('colliding')
                 if (virus.attacking):
                     running = False
-
+                elif (player_cell.x <= virus.x + 10 and player_cell.x >= virus.x - 10
+                      and player_cell.y <= virus.y + 10 and player_cell.y >= virus.y - 10):
+                    virus.kill()
 
         # Lock/Unlock chamber
 
