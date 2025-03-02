@@ -126,7 +126,7 @@ while time_loop:
             # text = font.render("You Died", True, "#bd0000")
             youDied = pygame.transform.scale(youDied, (CURR_SCREEN_WIDTH, 500))
             
-            for i in range(35):
+            for i in range(45):
                 youDied.set_alpha(i)
                 screen.blit(youDied, (CURR_SCREEN_WIDTH/2 - youDied.get_width()/2, CURR_SCREEN_HEIGHT/2 - youDied.get_height()/2)) # change opacity to be very small
                 pygame.display.flip()
@@ -137,7 +137,7 @@ while time_loop:
             screen.fill((0, 0, 0))
         
         if (died):
-            message = font.render("But, you survived for " + (getTime(timeFromPreviousGames + (35*40+1500))), True, "#FFFFFF")
+            message = font.render("You survived for " + (getTime(timeFromPreviousGames + (45*40+1500))), True, "#FFFFFF")
         else:
             message = font.render("Congratulations! You cleared the game in " + (getTime(timeFromPreviousGames)), True, "#FFFFFF")
             
