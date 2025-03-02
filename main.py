@@ -1,4 +1,5 @@
 # Example file showing a basic pygame "game loop"
+import random
 import pygame
 
 from tcell import TCell
@@ -47,6 +48,8 @@ font = pygame.font.Font(None, 36)
 intro = True
 died = False
 
+numTries = 0
+
 time_loop = True
 
 while (intro):
@@ -61,13 +64,13 @@ while (intro):
     
     screen.fill((0, 0, 0))
     text = font.render("Going Viral", True, "#FFFFFF")
-    screen.blit(text, (100, 100))
+    screen.blit(text, (CURR_SCREEN_WIDTH/2 - text.get_width()/2 - 5, 100))
 
     text = font.render("We're under attack! You are a white blood cell, ", True, "#FFFFFF")
-    screen.blit(text, (100, 180))
+    screen.blit(text, (CURR_SCREEN_WIDTH/2 - text.get_width()/2 - 5, 180))
 
     text = font.render("and your job is to protect us from viruses.", True, "#FFFFFF")
-    screen.blit(text, (100, 220))
+    screen.blit(text, (CURR_SCREEN_WIDTH/2 - text.get_width()/2 - 5, 220))
 
     text = font.render("Defeat the infection! (WASD to start)", True, "#FFFFFF")
     screen.blit(text, (100, 260))
@@ -76,11 +79,35 @@ while (intro):
 
 
 # Create main background image
-backgroundImg = pygame.image.load("./assets/environment/background.png").convert()
+backgrounds = [
+    pygame.image.load("./assets/environment/background.png").convert(),
+    pygame.image.load("./assets/environment/background_2.png").convert(),
+    pygame.image.load("./assets/environment/background_3.png").convert()
+]
+
+backgroundIdx = 0
 
 collected = {}
 
 while time_loop:
+    
+    if numTries > 0:
+        screen.fill((0, 0, 0))
+        text = font.render("You Died", True, "#bd0000")
+        screen.blit(text, (CURR_SCREEN_WIDTH/2 - text.get_width()/2 - 5, CURR_SCREEN_HEIGHT/2 - text.get_height()/2 - 5))
+
+        pygame.display.flip()
+        pygame.time.delay(2000)
+        
+        screen.fill((0, 0, 0))
+        text = font.render("Keep fighting!!", True, "#FFFFFF")
+        screen.blit(text, (CURR_SCREEN_WIDTH/2 - text.get_width()/2, CURR_SCREEN_HEIGHT/2 - text.get_height()/2))
+
+        pygame.display.flip()
+        pygame.time.delay(2000)
+    
+    numTries += 1
+    backgroundIdx = 0
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -101,7 +128,7 @@ while time_loop:
                     CURR_SCREEN_HEIGHT = 480
                 
                 screen = pygame.display.set_mode((CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT), pygame.RESIZABLE) # Resize window
-                backgroundImg = pygame.transform.scale(backgroundImg, (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
+                backgrounds[backgroundIdx] = pygame.transform.scale(backgrounds[backgroundIdx], (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
 
     player_cell = TCell(140, 140, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -124,8 +151,7 @@ while time_loop:
     timeFromPreviousGames = pygame.time.get_ticks()
 
     while running:
-        backgroundImg = pygame.transform.scale(backgroundImg, (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
-        
+        backgrounds[backgroundIdx] = pygame.transform.scale(backgrounds[backgroundIdx], (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
         
         # poll for events
         # pygame.QUIT event means the user clicked X to close your window
@@ -149,7 +175,7 @@ while time_loop:
                     CURR_SCREEN_HEIGHT = 480
                 
                 screen = pygame.display.set_mode((CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT), pygame.RESIZABLE) # Resize window
-                backgroundImg = pygame.transform.scale(backgroundImg, (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
+                backgrounds[backgroundIdx] = pygame.transform.scale(backgrounds[backgroundIdx], (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
                 
                 # for sprite in sprites:
                 #     sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
@@ -183,6 +209,7 @@ while time_loop:
             if (not map.movingOffMap(direction)):
                 screen.fill((0,0,0))
                 pygame.display.flip()
+                backgroundIdx = random.randint(0, 2)
                 pygame.time.delay(250)
                 #respwanws viruses when changing rooms
                 viruses = map.spawnEnemies()
@@ -195,7 +222,7 @@ while time_loop:
                 for sprite in sprites:
                                 sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
                                 sprite.rect.width, sprite.rect.height = scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
-                backgroundImg = pygame.transform.scale(backgroundImg, (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
+                backgrounds[backgroundIdx] = pygame.transform.scale(backgrounds[backgroundIdx], (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
                 
                 map.changeRoom(player_cell, direction)
                 
@@ -261,7 +288,7 @@ while time_loop:
 
         # Draw Everything
 
-        screen.blit(backgroundImg, (0, 0)) # Draw background
+        screen.blit(backgrounds[backgroundIdx], (0, 0)) # Draw background
         map.doors.draw(screen) # Draw doors
         if(not eligibleToMoveRooms): map.locks.draw(screen) # Draw locks
         sprites.draw(screen) # Draw sprites    

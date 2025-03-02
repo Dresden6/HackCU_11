@@ -136,7 +136,7 @@ class Map():
         # spawn in new room's background, obstacles, and enemies
         print("overworld x: " + (str)(self.overworldX))
         print("overworld y: " + (str)(self.overworldY))
-        selectedTile = self.room_grid[self.overworldX][self.overworldY]
+        selectedTile = self.room_grid[self.overworldY][self.overworldX]
         
         self.despawnOldEntities(selectedTile)
         self.spawnRoom(selectedTile)
