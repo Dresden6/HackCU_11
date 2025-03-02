@@ -24,16 +24,20 @@ class TCell(pygame.sprite.Sprite):
         pass
 
     def moveLeft(self):
-        self.x -= self.speed
+        if(self.x > 0): 
+            self.x -= self.speed
 
     def moveRight(self):
-        self.x += self.speed
+        if(self.x < 1920): 
+            self.x += self.speed
 
     def moveUp(self):
-        self.y -= self.speed
+        if(self.y > 0): 
+            self.y -= self.speed
 
     def moveDown(self):
-        self.y += self.speed
+        if(self.y < 1080): 
+            self.y += self.speed
 
     def getX(self):
         return self.x
@@ -49,13 +53,13 @@ class TCell(pygame.sprite.Sprite):
     
     def hasMovedRooms(self, SCREEN_WIDTH, SCREEN_HEIGHT): # returns boolean
         # check if player has moved out of bounds
-        if self.x < 0:
+        if self.x < 1:
             return True
-        elif self.x > SCREEN_WIDTH:
+        elif self.x > SCREEN_WIDTH - 1:
             return True
-        elif self.y < 0:
+        elif self.y < 1:
             return True
-        elif self.y > SCREEN_HEIGHT:
+        elif self.y > SCREEN_HEIGHT - 1:
             return True
         return False
     
