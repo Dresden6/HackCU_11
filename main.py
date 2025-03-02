@@ -150,6 +150,20 @@ while time_loop:
                 screen.fill((0,0,0))
                 pygame.display.flip()
                 pygame.time.delay(250)
+                #respwanws viruses when changing rooms
+                viruses = map.spawnEnemies()
+                viruses2 = [Virus2(128, 128, SCREEN_WIDTH/6, SCREEN_HEIGHT/6 + 40)]
+                
+                
+                sprites = pygame.sprite.RenderPlain([player_cell] + viruses + viruses2)
+
+
+                # Scale everything correctly:
+                for sprite in sprites:
+                                sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
+                                sprite.rect.width, sprite.rect.height = scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
+                backgroundImg = pygame.transform.scale(backgroundImg, (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
+                
                 viruses = map.changeRoom(player_cell, direction)
                 
                 # Move player to correct place
