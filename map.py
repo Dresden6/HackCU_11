@@ -141,7 +141,7 @@ class Map():
         self.despawnOldEntities(selectedTile)
         self.spawnRoom(selectedTile)
         self.spawnObstacles(selectedTile)
-        self.spawnEnemies(selectedTile)
+        self.spawnEnemies()
         
     # despawns old enemies, obstacles, etc
     def despawnOldEntities(self, selectedTile):
