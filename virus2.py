@@ -21,6 +21,18 @@ class Virus2(Virus):
         
     def _move(self):
         
+        
+        # Clamp speeds
+        if self.xspeed > self.maxspeed:
+            self.xspeed = self.maxspeed
+        elif self.xspeed < -self.maxspeed:
+            self.xspeed = -self.maxspeed
+
+        if self.yspeed > self.maxspeed:
+            self.yspeed = self.maxspeed
+        elif self.yspeed < -self.maxspeed:
+            self.yspeed = -self.maxspeed
+        
         self.x += self.xspeed
         self.y += self.yspeed
 
@@ -60,16 +72,7 @@ class Virus2(Virus):
         self.xspeed += errx
         self.yspeed -= erry 
         
-        # Clamp speeds
-        if self.xspeed > self.maxspeed:
-            self.xspeed = self.maxspeed
-        elif self.xspeed < -self.maxspeed:
-            self.xspeed = -self.maxspeed
-
-        if self.yspeed > self.maxspeed:
-            self.yspeed = self.maxspeed
-        elif self.yspeed < -self.maxspeed:
-            self.yspeed = -self.maxspeed
+        
         
         # print(self.xspeed, self.yspeed)
         

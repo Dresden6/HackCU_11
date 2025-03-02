@@ -171,7 +171,7 @@ while time_loop:
                 virus.xspeed = -virus.xspeed
             if (virus.y > SCREEN_HEIGHT or virus.y < 0):
                 virus.yspeed = -virus.yspeed
-
+                
             if (pygame.sprite.collide_rect(virus, player_cell)):
                  if (player_cell.x <= virus.x + 60 and player_cell.x >= virus.x - 60
                         and player_cell.y <= virus.y + 60 and player_cell.y >= virus.y - 60):
@@ -180,9 +180,14 @@ while time_loop:
                     else:
                         virus.kill()
                     # bodyCount == len(viruses) - 1
-                 
-                    
+
+         
         for virus2 in viruses2:
+            if (virus2.x > SCREEN_WIDTH or virus2.x < 0):
+                virus2.xspeed = -virus2.xspeed
+            if (virus2.y > SCREEN_HEIGHT or virus2.y < 0):
+                virus2.yspeed = -virus2.yspeed
+            
             if (pygame.sprite.collide_rect(virus2, player_cell)):
                 if (player_cell.x <= virus2.x + 60 and player_cell.x >= virus2.x - 60
                         and player_cell.y <= virus2.y + 60 and player_cell.y >= virus2.y - 60):
