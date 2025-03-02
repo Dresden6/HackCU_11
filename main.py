@@ -3,6 +3,7 @@ import pygame
 
 from tcell import TCell
 from virus import Virus
+from virus2 import Virus2
 from map import Map
 
 # pygame setup
@@ -40,8 +41,9 @@ backgroundImg = pygame.image.load("./assets/environment/background.png").convert
 info = pygame.display.Info()
 player_cell = TCell(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 viruses = [Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40)]
+viruses2 = [Virus2(128, 128, SCREEN_WIDTH/6, SCREEN_HEIGHT/6 + 40)]
 map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
-sprites = pygame.sprite.RenderPlain([player_cell] + viruses)
+sprites = pygame.sprite.RenderPlain([player_cell] + viruses + viruses2)
 
 
 # Scale everything correctly:
@@ -109,10 +111,13 @@ while running:
             virus.xspeed = -virus.xspeed
         if (virus.y > SCREEN_HEIGHT or virus.y < 0):
             virus.yspeed = -virus.yspeed
+            
+            
+    for virus in viruses2:
+        virus.changeVelocityTowardsPlayer((player_cell.x, player_cell.y))
 
 
         if (pygame.sprite.collide_circle(virus, player_cell)):
-            print('colliding')
             if (virus.attacking):
                 running = False
 

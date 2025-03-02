@@ -6,6 +6,8 @@ class Virus(pygame.sprite.Sprite):
     def __init__(self, width, height, x, y):
         pygame.sprite.Sprite.__init__(self)
         
+        self.maxspeed = 3
+        
         self.width = width
         self.height = height
         
@@ -20,8 +22,8 @@ class Virus(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (self.image.get_width() * 2, self.image.get_height() * 2))
         
         self.rect = self.image.get_rect()
-        self.xspeed = randint(-3, 3)
-        self.yspeed = randint(-3, 3)
+        self.xspeed = randint(-self.maxspeed, self.maxspeed)
+        self.yspeed = randint(-self.maxspeed, self.maxspeed)
         self.hit_countdown = 0
     
     # trying to make the virus flash when it is hit
