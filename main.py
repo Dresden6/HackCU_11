@@ -217,7 +217,6 @@ while time_loop:
 
         for virus in viruses2:
             virus.changeVelocityTowardsPlayer((player_cell.x, player_cell.y))
-            virus._move()
 
         # Resize coordinates for everything 
         for sprite in sprites:

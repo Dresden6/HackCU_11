@@ -17,8 +17,24 @@ class Virus2(Virus):
         
         self.rotation = 0
         
-        self.maxspeed = 5
+        self.maxspeed = 10
         
+        
+    
+    def update(self):      
+        self._move()
+
+        self.hit_countdown += 1
+
+        if (self.hit_countdown >= 100 ):
+            self.hit_countdown = 0
+            if (self.attacking):
+                self.idle()
+            else:
+                self.attack()
+                
+                
+    
     def _move(self):
         
         
@@ -53,7 +69,7 @@ class Virus2(Virus):
         erry = self.y - playerCoords[1]
         
         
-        maxAcc = 0.1
+        maxAcc = 0.2
         
         # Clamp error
         if errx > maxAcc:
