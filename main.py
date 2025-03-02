@@ -46,6 +46,8 @@ while time_loop:
             time_loop = False
 
     player_cell = TCell(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    
+    #TODO: move virus spawning to spawnEnemies() function in map, then change num enemies based on room type
     viruses = [Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40), 
                Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40),
                Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40)]
