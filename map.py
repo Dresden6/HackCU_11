@@ -154,10 +154,10 @@ class Map():
         # a door blocks movement to another room in a different direction
         
         self.doors = pygame.sprite.RenderPlain([
-            Door(64, 16, 1920/2, 0, False, selectedTile.doors[0]),
-            Door(64, 16, 1920, 1080/2, True, selectedTile.doors[1]),
-            Door(64, 16, 1920/2, 1080, False, selectedTile.doors[2]),
-            Door(64, 16, 0, 1080/2, True, selectedTile.doors[3]),  
+            Door(64, 16, self.SCREEN_WIDTH/2, 0, False, selectedTile.doors[0]),
+            Door(64, 16, self.SCREEN_WIDTH, self.SCREEN_HEIGHT/2, True, selectedTile.doors[1]),
+            Door(64, 16, self.SCREEN_WIDTH/2, self.SCREEN_HEIGHT, False, selectedTile.doors[2]),
+            Door(64, 16, 0, self.SCREEN_HEIGHT/2, True, selectedTile.doors[3])
         ])
         
         # --------------------------------------------------------------------------------------------------------
