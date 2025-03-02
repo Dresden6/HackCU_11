@@ -92,8 +92,11 @@ while time_loop:
 
     eligibleToMoveRooms = True # default value for flag having to do with map crossing
     running = True
+    
+    bodyCount = 0
 
     while running:
+        
         # poll for events
         # pygame.QUIT event means the user clicked X to close your window
         for event in pygame.event.get():
@@ -174,6 +177,15 @@ while time_loop:
         #         if (virus.y > SCREEN_HEIGHT or virus.y < 0):
         #             virus.yspeed = -virus.yspeed
 
+
+            if (pygame.sprite.collide_rect(virus, player_cell)):
+                if (virus.attacking):
+                    running = False
+                elif (player_cell.x <= virus.x + 10 and player_cell.x >= virus.x - 10
+                        and player_cell.y <= virus.y + 10 and player_cell.y >= virus.y - 10):
+                    virus.kill()
+                    bodyCount += 1
+
         
         # Resize coordinates for everything 
         for sprite in sprites:
@@ -195,6 +207,8 @@ while time_loop:
         pygame.display.flip()
 
         clock.tick(60)  # limits FPS to 60
+        
+    print("Your kill count for this round was: " + str(bodyCount))
     
 
 
