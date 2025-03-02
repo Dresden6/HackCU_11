@@ -87,7 +87,8 @@ while (intro):
             time_loop = False
 
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_a] or keys[pygame.K_d] or keys[pygame.K_w] or keys[pygame.K_s]:
+    if keys[pygame.K_a] or keys[pygame.K_d] or keys[pygame.K_w] or keys[pygame.K_s] \
+        or keys[pygame.K_UP] or keys[pygame.K_DOWN] or keys[pygame.K_LEFT] or keys[pygame.K_RIGHT]:
         intro = False
     
     screen.fill((0, 0, 0))
@@ -120,6 +121,7 @@ collected = {}
 while time_loop:
     
     if numTries > 0:
+        screen.fill((0, 0, 0))
         if(died):
             # screen.fill((0, 0, 0))
             # text = font.render("You Died", True, "#bd0000")
@@ -144,8 +146,6 @@ while time_loop:
         
         screen.blit(message, ((CURR_SCREEN_WIDTH/4) - text.get_width()/4, 1*(CURR_SCREEN_HEIGHT/3) - (text.get_height()/3)))
         screen.blit(text, (CURR_SCREEN_WIDTH/2 - text.get_width()/2, 2*(CURR_SCREEN_HEIGHT/3) - (text.get_height()/3)))
-        
-        
 
         pygame.display.flip()
         pygame.time.delay(2000)
@@ -181,7 +181,7 @@ while time_loop:
     map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
     viruses = map.spawnEnemies(3)
     
-    sprites = pygame.sprite.RenderPlain([player_cell] + viruses)
+    sprites = pygame.sprite.RenderPlain(viruses + [player_cell])
 
 
     # Scale everything correctly:
@@ -234,23 +234,14 @@ while time_loop:
         # Player Movement  
 
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_a]:
+        if keys[pygame.K_a] or keys[pygame.K_LEFT]:
             player_cell.moveLeft()
-        if keys[pygame.K_d]:
+        if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
             player_cell.moveRight()
-        if keys[pygame.K_w]:
+        if keys[pygame.K_w] or keys[pygame.K_UP]:
             player_cell.moveUp()
-        if keys[pygame.K_s]:
-            player_cell.moveDown()
-        if keys[pygame.K_LEFT]:
-            player_cell.moveLeft()
-        if keys[pygame.K_RIGHT]:
-            player_cell.moveRight()
-        if keys[pygame.K_UP]:
-            player_cell.moveUp()
-        if keys[pygame.K_DOWN]:
-            player_cell.moveDown()
-            
+        if keys[pygame.K_s] or keys[pygame.K_DOWN]:
+            player_cell.moveDown()            
             
             
         # check if player has moved rooms
@@ -313,16 +304,11 @@ while time_loop:
                     # bodyCount == len(viruses) - 1
             if (isinstance(virus, Virus2)):
                 virus.changeVelocityTowardsPlayer((player_cell.x, player_cell.y))
-
-         
     
-                    
         
-        if (len(sprites) == 1):
-            # map.clearCurrentRoom()
-            pass
+        if (len(viruses) == 0 and map.overworldX == 4 and map.overworldY == 4):
+            running = False
 
-        
         # Resize coordinates for everything 
         for sprite in sprites:
             sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
