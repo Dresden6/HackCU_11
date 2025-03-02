@@ -93,7 +93,7 @@ while time_loop:
     eligibleToMoveRooms = True # default value for flag having to do with map crossing
     running = True
     
-    bodyCount = 0
+    # bodyCount = 0
 
     while running:
         
@@ -165,7 +165,8 @@ while time_loop:
                 elif (player_cell.x <= virus.x + 10 and player_cell.x >= virus.x - 10
                         and player_cell.y <= virus.y + 10 and player_cell.y >= virus.y - 10):
                     virus.kill()
-                    bodyCount += 1
+                    # bodyCount == len(viruses) - 1
+                    
         
         if (len(viruses) == 0):
             map.clearCurrentRoom()
@@ -196,7 +197,7 @@ while time_loop:
 
         clock.tick(60)  # limits FPS to 60
         
-    print("Your kill count for this round was: " + str(bodyCount))
+    # print("Your kill count for this round was: " + str(bodyCount))
     
 
 
