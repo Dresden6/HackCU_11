@@ -44,67 +44,86 @@ viruses = [Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40)]
 viruses2 = [Virus2(128, 128, SCREEN_WIDTH/6, SCREEN_HEIGHT/6 + 40)]
 map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
 sprites = pygame.sprite.RenderPlain([player_cell] + viruses + viruses2)
+time_loop = True
+while time_loop:
 
-
-# Scale everything correctly:
-for sprite in sprites:
-                sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
-                sprite.rect.width, sprite.rect.height = scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
-backgroundImg = pygame.transform.scale(backgroundImg, (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
-
-
-while running:
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
-        if event.type == pygame.VIDEORESIZE:
-            CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT = event.size
-            
-            # Keep aspect ratio
-            if CURR_SCREEN_WIDTH == pygame.display.Info().current_w:
-                CURR_SCREEN_WIDTH = 16/9 * CURR_SCREEN_HEIGHT
-            elif CURR_SCREEN_HEIGHT == pygame.display.Info().current_h:
-                CURR_SCREEN_HEIGHT = 9/16 * CURR_SCREEN_WIDTH
-            else:
-                CURR_SCREEN_HEIGHT = 9/16 * CURR_SCREEN_WIDTH
-            
-            if CURR_SCREEN_WIDTH < 854 or CURR_SCREEN_HEIGHT < 480:
-                CURR_SCREEN_WIDTH = 854
-                CURR_SCREEN_HEIGHT = 480
-            
-            screen = pygame.display.set_mode((CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT), pygame.RESIZABLE) # Resize window
-            backgroundImg = pygame.transform.scale(backgroundImg, (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
-            
-            # for sprite in sprites:
-            #     sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
-            #     sprite.rect.width, sprite.rect.height = scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
-            #     pass
-          
-          
-          
-    # Player Movement  
+            time_loop = False
 
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_a]:
-        player_cell.moveLeft()
-    if keys[pygame.K_d]:
-        player_cell.moveRight()
-    if keys[pygame.K_w]:
-        player_cell.moveUp()
-    if keys[pygame.K_s]:
-        player_cell.moveDown()
-        
-    # check if player has moved rooms
-    if (player_cell.hasMovedRooms(SCREEN_WIDTH, SCREEN_HEIGHT)):
-        direction = player_cell.findRoomMovementDirection()
-        map.changeRoom(direction)
+    player_cell = TCell(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    viruses = [Virus(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 40)]
+    map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
+    sprites = pygame.sprite.RenderPlain([player_cell] + viruses)
 
-    for virus in viruses:
-        virus_x = virus.getLocation()[0]
-        if (virus_x > SCREEN_WIDTH):
-            virus.speed = -virus.speed
+
+    # Scale everything correctly:
+    for sprite in sprites:
+                    sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
+                    sprite.rect.width, sprite.rect.height = scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
+    backgroundImg = pygame.transform.scale(backgroundImg, (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
+
+    running = True
+
+    while running:
+        # poll for events
+        # pygame.QUIT event means the user clicked X to close your window
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                time_loop = False
+            if event.type == pygame.VIDEORESIZE:
+                CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT = event.size
+                
+                # Keep aspect ratio
+                if CURR_SCREEN_WIDTH == pygame.display.Info().current_w:
+                    CURR_SCREEN_WIDTH = 16/9 * CURR_SCREEN_HEIGHT
+                elif CURR_SCREEN_HEIGHT == pygame.display.Info().current_h:
+                    CURR_SCREEN_HEIGHT = 9/16 * CURR_SCREEN_WIDTH
+                else:
+                    CURR_SCREEN_HEIGHT = 9/16 * CURR_SCREEN_WIDTH
+                
+                if CURR_SCREEN_WIDTH < 854 or CURR_SCREEN_HEIGHT < 480:
+                    CURR_SCREEN_WIDTH = 854
+                    CURR_SCREEN_HEIGHT = 480
+                
+                screen = pygame.display.set_mode((CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT), pygame.RESIZABLE) # Resize window
+                backgroundImg = pygame.transform.scale(backgroundImg, (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
+                
+                # for sprite in sprites:
+                #     sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
+                #     sprite.rect.width, sprite.rect.height = scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
+                #     pass
+            
+            
+            
+        # Player Movement  
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_a]:
+            player_cell.moveLeft()
+        if keys[pygame.K_d]:
+            player_cell.moveRight()
+        if keys[pygame.K_w]:
+            player_cell.moveUp()
+        if keys[pygame.K_s]:
+            player_cell.moveDown()
+            
+        # Lock/Unlock chamber
+
+        if viruses.__len__ == 0:
+            
+            pass
+            
+        # check if player has moved rooms
+        if (player_cell.hasMovedRooms(SCREEN_WIDTH, SCREEN_HEIGHT)):
+            direction = player_cell.findRoomMovementDirection(SCREEN_WIDTH, SCREEN_HEIGHT)
+            map.changeRoom(player_cell, direction)
+
+        for virus in viruses:
+            virus_x = virus.getLocation()[0]
+            if (virus_x > SCREEN_WIDTH):
+                virus.speed = -virus.speed
 
     for virus in viruses:
         if (virus.x > SCREEN_WIDTH or virus.x < 0):
@@ -115,6 +134,11 @@ while running:
             
     for virus in viruses2:
         virus.changeVelocityTowardsPlayer((player_cell.x, player_cell.y))
+        for virus in viruses:
+            if (virus.x > SCREEN_WIDTH or virus.x < 0):
+                virus.xspeed = -virus.xspeed
+            if (virus.y > SCREEN_HEIGHT or virus.y < 0):
+                virus.yspeed = -virus.yspeed
 
 
         if (pygame.sprite.collide_circle(virus, player_cell)):
@@ -134,20 +158,32 @@ while running:
         sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
         sprite.rect.width, sprite.rect.height = scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
         sprite.rect.center = scaleCoordinates((sprite.x, sprite.y), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Probably a better way to do this
+            if (pygame.sprite.collide_circle(virus, player_cell)):
+                print('colliding')
+                if (virus.attacking):
+                    running = False
+        
+        # Resize coordinates for everything 
+        for sprite in sprites:
+            sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
+            sprite.rect.width, sprite.rect.height = scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
+            sprite.rect.center = scaleCoordinates((sprite.x, sprite.y), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Probably a better way to do this
 
-    sprites.update()
+        sprites.update()
 
 
 
 
-    # Draw Everything
+        # Draw Everything
 
-    screen.blit(backgroundImg, (0, 0)) # Draw background
-    sprites.draw(screen) # Draw sprites    
+        screen.blit(backgroundImg, (0, 0)) # Draw background
+        sprites.draw(screen) # Draw sprites    
 
-    # flip() the display to put your work on screen
-    pygame.display.flip()
+        # flip() the display to put your work on screen
+        pygame.display.flip()
 
-    clock.tick(60)  # limits FPS to 60
+        clock.tick(60)  # limits FPS to 60
+    
+
 
 pygame.quit()
