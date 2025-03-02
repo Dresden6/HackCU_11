@@ -176,6 +176,22 @@ class Map():
         #         pass
         #     elif (selectedTile.doors[3]): # west
         #         pass
+        #
+        #
+        #      I met a programmer from an antique land,
+        #      Who said—“Eight vast and functionless lines of code
+        #      Stand in map.py. . . . Near them, in the lines,
+        #      Commented away, a shattered for loop lies, whose cases,
+        #      And stupid logic, and pretense of functionality,
+        #      Tell that its creator well those Redbulls drank
+        #      Which yet survive, commented in these lifeless files,
+        #      The team members that mocked them, and the members that laughed;
+        #      And in the comment, these words appear:
+        #      My name is Alex, Major of CS;
+        #      Look on my Works, ye Mighty, and despair!
+        #      Nothing beside remains. Round the decay
+        #      Of that colossal Wreck, boundless and bare
+        #      The lone and level functions stretch far away.”
         # --------------------------------------------------------------------------------------------------------
             
         

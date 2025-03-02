@@ -59,14 +59,6 @@ class TCell(pygame.sprite.Sprite):
             return True
         return False
     
-    def backToMiddle(self, SCREEN_WIDTH, SCREEN_HEIGHT):
-        # returns true if player is not touching the walls
-        if (self.x > (self.radius + 1) 
-            and self.x < (SCREEN_WIDTH - self.radius - 1)
-            and self.y > (self.radius + 1)
-            and self.y < (SCREEN_HEIGHT - self.radius - 1)):
-            return True
-        return False
     
     def findRoomMovementDirection(self, SCREEN_WIDTH, SCREEN_HEIGHT):
         if self.x < 0:
