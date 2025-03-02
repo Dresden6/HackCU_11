@@ -172,22 +172,24 @@ while time_loop:
                 virus.yspeed = -virus.yspeed
 
             if (pygame.sprite.collide_rect(virus, player_cell)):
-                if (virus.attacking):
-                    running = False
-                elif (player_cell.x <= virus.x + 10 and player_cell.x >= virus.x - 10
-                        and player_cell.y <= virus.y + 10 and player_cell.y >= virus.y - 10):
-                    virus.kill()
+                 if (player_cell.x <= virus.x + 60 and player_cell.x >= virus.x - 60
+                        and player_cell.y <= virus.y + 60 and player_cell.y >= virus.y - 60):
+                    if (virus.attacking):
+                        running = False
+                    else:
+                        virus.kill()
                     # bodyCount == len(viruses) - 1
                  
                     
         for virus2 in viruses2:
             if (pygame.sprite.collide_rect(virus2, player_cell)):
-                if (virus2.attacking):
-                    running = False
-                elif (player_cell.x <= virus2.x + 10 and player_cell.x >= virus2.x - 10
-                        and player_cell.y <= virus2.y + 10 and player_cell.y >= virus2.y - 10):
-                    virus2.kill()
-                    # bodyCount == len(viruses) - 1
+                if (player_cell.x <= virus2.x + 60 and player_cell.x >= virus2.x - 60
+                        and player_cell.y <= virus2.y + 60 and player_cell.y >= virus2.y - 60):
+                    if (virus2.attacking):
+                        running = False
+                    else:
+                        virus2.kill()
+                        # bodyCount == len(viruses2) - 1
                     
         
         if (len(viruses) == 0):
