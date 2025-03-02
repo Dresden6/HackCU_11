@@ -74,6 +74,23 @@ while time_loop:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             time_loop = False
+        if event.type == pygame.VIDEORESIZE:
+                CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT = event.size
+                
+                # Keep aspect ratio
+                if CURR_SCREEN_WIDTH == pygame.display.Info().current_w:
+                    CURR_SCREEN_WIDTH = 16/9 * CURR_SCREEN_HEIGHT
+                elif CURR_SCREEN_HEIGHT == pygame.display.Info().current_h:
+                    CURR_SCREEN_HEIGHT = 9/16 * CURR_SCREEN_WIDTH
+                else:
+                    CURR_SCREEN_HEIGHT = 9/16 * CURR_SCREEN_WIDTH
+                
+                if CURR_SCREEN_WIDTH < 854 or CURR_SCREEN_HEIGHT < 480:
+                    CURR_SCREEN_WIDTH = 854
+                    CURR_SCREEN_HEIGHT = 480
+                
+                screen = pygame.display.set_mode((CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT), pygame.RESIZABLE) # Resize window
+                backgroundImg = pygame.transform.scale(backgroundImg, (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
 
     player_cell = TCell(128, 128, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     map = Map(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -88,15 +105,18 @@ while time_loop:
     for sprite in sprites:
                     sprite.image = pygame.transform.scale(sprite.image, scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)))
                     sprite.rect.width, sprite.rect.height = scaleToScreenSize((sprite.width, sprite.height), (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT))
-    backgroundImg = pygame.transform.scale(backgroundImg, (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
 
-    eligibleToMoveRooms = True # default value for flag having to do with map crossing
+    eligibleToMoveRooms = False # default value for flag having to do with map crossing
     running = True
     
     bodyCount = 0
     NUM_I_FRAMES = 25
+    
+    
 
     while running:
+        backgroundImg = pygame.transform.scale(backgroundImg, (CURR_SCREEN_WIDTH, CURR_SCREEN_HEIGHT)) # Resize background image
+        
         
         # poll for events
         # pygame.QUIT event means the user clicked X to close your window
@@ -141,7 +161,12 @@ while time_loop:
         if keys[pygame.K_s]:
             player_cell.moveDown()
             
+            
+            
         # check if player has moved rooms
+        
+        if (len(viruses) + len(viruses2) == 0):
+            eligibleToMoveRooms = True
         
         if (player_cell.hasMovedRooms(SCREEN_WIDTH, SCREEN_HEIGHT) and eligibleToMoveRooms):
             eligibleToMoveRooms = False
@@ -238,6 +263,7 @@ while time_loop:
 
         screen.blit(backgroundImg, (0, 0)) # Draw background
         map.doors.draw(screen) # Draw doors
+        if(not eligibleToMoveRooms): map.locks.draw() # Draw locks
         sprites.draw(screen) # Draw sprites    
 
         # flip() the display to put your work on screen

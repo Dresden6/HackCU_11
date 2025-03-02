@@ -16,6 +16,7 @@ class Tile():
 class Map():
     
     doors = pygame.sprite.RenderPlain()
+    locks = pygame.sprite.RenderPlain()
     
     def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
         # store constants for width and height inside class for easy access
@@ -157,6 +158,11 @@ class Map():
             Door(64, 16, self.SCREEN_WIDTH/2, self.SCREEN_HEIGHT, False, selectedTile.doors[2]),
             Door(64, 16, 0, self.SCREEN_HEIGHT/2, True, selectedTile.doors[3])
         ])
+        
+        
+        if(selectedTile.doors[0]):
+            self.locks.add()
+            
         
         # --------------------------------------------------------------------------------------------------------
         # To be immortalized forever in the hall of shame:
