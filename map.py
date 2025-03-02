@@ -2,6 +2,7 @@ import pygame
 import random
 from door import Door
 from virus import Virus
+from virus2 import Virus2
 from lock import Lock
 
 class Tile():
@@ -211,6 +212,7 @@ class Map():
             x = random.choice(list(range(CURR_SCREEN_WIDTH//8, 3*CURR_SCREEN_WIDTH//8)) + list(range(5*CURR_SCREEN_WIDTH//8, 7*CURR_SCREEN_WIDTH//8)))
             y = random.choice(list(range(CURR_SCREEN_HEIGHT//8, 3*CURR_SCREEN_HEIGHT//8)) + list(range(5*CURR_SCREEN_HEIGHT//8, 7*CURR_SCREEN_HEIGHT//8)))
             result.append(Virus(128, 128,  CURR_SCREEN_WIDTH/2 + x, CURR_SCREEN_HEIGHT/2 + y))
+            result.append(Virus2(128, 128, CURR_SCREEN_WIDTH/2 - x, CURR_SCREEN_HEIGHT/2 - y))
         return result
 
         # TODO: look at room type at self.overworldX and self.overworldY, then render the proper obstacles as specified in self.room_types, making sure they don't overlap with the background sprite OR the obstacles
